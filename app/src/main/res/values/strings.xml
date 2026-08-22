@@ -1,0 +1,119 @@
+<resources>
+    <string name="app_name">網路播客</string>
+    <string name="menu_title_about">緣起</string>
+    <string name="menu_title_feedback">意見回饋</string>
+    <string name="url_feedback">https://docs.google.com/forms/d/e/1FAIpQLSdXOPbtDMCKtrXTGbJUpiydeMvTjUgM_SA3O1JQN6Zq_zeThg/viewform?usp=sf_link</string>
+    <string name="menu_title_quit">關閉程式</string>
+    <string name="title_home">頻道搜尋</string>
+    <string name="title_channel">最愛頻道</string>
+    <string name="hint_title">使用說明</string>
+    <string name="keyword">關鍵字</string>
+    <string name="donate_support">支持創作者(斗內)</string>
+    <string name="item_icon">項圖</string>
+    <string name="return1">迴向</string>
+    <string name="delete_item">刪除</string>
+    <string name="automatic">自動完成並迴向</string>
+    <string name="voicehelp">需要語音輔助說明</string>
+    <string name="descr_record_0">按下右側【麥克風圖示】可開始錄製，再按一次即完成錄製</string>
+    <string name="return_sample_show">顯示範文</string>
+    <string name="return_sample_hide">隱藏</string>
+    <string-array name="return_sample">
+        <item>陽上報恩人＿＿＿，每天念%d句【南無阿摩陀佛】，把念佛功德迴向給＿＿＿的歷代宗親，冤親債主，地基主，求佛菩薩接引祂們往生西方極樂世界，離苦得樂。並求佛菩薩加持自己及親人們業障消除，遠離惡緣，親近善緣，福慧增長，身體健康。</item>
+        <item>願消三丈諸煩惱，願得智慧真明瞭，我願罪障悉消除，世世常行菩薩道。</item>
+        <item>願以此功德，普及於一切。我等與眾生，皆共成佛道。</item>
+        <item>願以此功德，迴向給所有眾生，使眾生早日超脫苦海，往生西方極樂淨土。</item>
+        <item>願以此功德。莊嚴佛淨土。上報四重恩。下濟三途苦。若有見聞者。悉發菩提心。盡此一報身。同生極樂國。</item>
+    </string-array>
+    <string name="delete_record_hint">長按記錄後即可刪除該筆紀錄</string>
+    <string name="change_template_hint">滑動範文即可再顯示其他範文</string>
+    <string name="view_category">圖像</string>
+    <string name="view_buddha">佛像</string>
+    <string name="view_landscape">風景</string>
+    <string name="view_fruit">水果</string>
+    <string name="reader">修道者</string>
+    <string name="little_boy">沙彌</string>
+    <string name="junior">修禪</string>
+    <string name="older_man">老僧</string>
+    <string name="big_fontsize">較大</string>
+    <string name="normal_fontsize">適中</string>
+    <string name="small_fontsize">較小</string>
+    <string name="font_size_title">字體</string>
+    <string name="error">錯誤</string>
+    <string name="fail_to_save_record">儲存迴向記錄失敗!</string>
+    <string name="notfound0">未找到您錄製的念佛聲，您可按下左側【麥克風圖示】開始錄製，再按一次即完成錄製</string>
+    <string name="notfound1">未找到您錄製的迴向聲，您可按下左側【麥克風圖示】開始錄製，再按一次即完成錄製</string>
+    <!-- release : ca-app-pub-7774962919741171/7850562750 -->
+    <!-- testing : ca-app-pub-3940256099942544/6300978111 -->
+    <string name="vpon_id">8a80854b8d346259018d3918f9b30044</string>
+    <!-- string name="vpon_id">8a80854b75ab2b0101761cfb398671c6</string -->
+    <string name="adaptive_banner_ad_unit_id">ca-app-pub-7774962919741171/7850562750</string>
+    <string name="delete_record_title">提醒您</string>
+    <string name="delete_record_content">您確定要刪除此筆迴向紀錄?</string>
+    <string name="delete_record0">您確定要刪除錄製的念佛聲?</string>
+    <string name="delete_record1">您確定要刪除錄製的迴向聲?</string>
+    <string name="confirm">確認</string>
+    <string name="cancel">取消</string>
+    <string name="i_know">了解</string>
+    <string name="press_back_exit">再按一次返回鍵即關閉程式!</string>
+    <string name="record_string_format">%d句功德文已迴向完成!</string>
+    <string name="EmptyString" />
+    <string name="calendar">日曆</string>
+    <string name="go_to_today">滑回今天</string>
+    <string name="play">Play</string>
+    <string name="my_ad">自己的廣告</string>
+    <string name="todo">TODO</string>
+    <string name="bless_word">輸入問候語</string>
+    <string name="default_hope">祝您 平安喜樂</string>
+    <string name="bless_apply">貼上</string>
+    <string name="Save">儲存</string>
+    <string name="Share">儲存後分享</string>
+    <string name="Close">關閉</string>
+    <!-- -->
+    <string name="title_hello">貼上問候語即可製作成【問候圖】</string>
+    <string name="desc_hello_pic">按下喜愛的圖片可以製作【問候圖】</string>
+    <string name="desc_text_move">提示：問候語可在圖片上用手指移動到合適的位置</string>
+    <string name="hello_text">問候語</string>
+    <string name="my_photo">打開相簿</string>
+    <string name="set_color">選擇顏色</string>
+    <string name="set_size">調整大小</string>
+    <string name="news_resource">新聞分類</string>
+    <string name="stock_key">股票代碼或名稱</string>
+    <string name="stock_code">股票代碼</string>
+    <string name="Search">搜尋</string>
+    <string name="close">關閉</string>
+    <string name="please_choose">請選擇項目</string>
+    <string name="donate_desc">完全自願，不會因此取得額外功能或內容。</string>
+    <string name="app_qr_code">請使用銀行或電子支付 App 掃描 QR Code</string>
+    <string name="twqr_qr_code">TWQR 抖內 QR Code</string>
+    <string name="app_donate_desc">如果這個 App 對您有幫助，歡迎自由支持開發者。</string>
+    <string name="app_donate_title">支持開發者 ❤️</string>
+    <string name="add_to_favorite">加入最愛</string>
+    //感謝文
+    <string-array name="thanks">
+        <item>點選廣告是您對我最大的支持，祝您事事順遂。</item>
+        <item>您需要任何版本改進嗎?請留言告訴我，感謝。</item>
+        <item>點選廣告是改版的唯一資金來源，感謝有您。</item>
+        <item>點選廣告可資助程式開發與上架費用，祝您一生平安。</item>
+    </string-array>
+   //大佛圖檔
+    <string-array name="image_url">
+        <item>https://drive.google.com/file/d/16rtxEHqUyiyD22dQzKZ_6JOC8jvYKhM7/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1MFk6uKp0yq5Eh-_h8dv8FAS_YOt9xuGm/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1ZA-gAEr3x0JeiKPopOi1hSl7FTNRsy11/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1cWFn1l23xJyIQTGc2Q-PR2qLPZxBXtC6/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1CeUYEBbwn8t3ccQ8bpQb305LGlO7fIF6/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1oSpp7_1K3dcLGC6AKZ8G_wEYMUClxplQ/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1h09mYBQOdhd9YM9_JFIzUVfLe466G7sX/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1AgHS2quw0iGJaxnPJcsTvk75YL2muWXD/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1jV7AvzWeO2QT09W2VsRb-8tcfYDUDVP_/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1VqpMjNLJHrZ1Vr_otVt42ZNstTbs5cTs/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1Dfenu1ZouOkjt6kEYy0bJCCV66cWoJJN/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1OEsROPkSyYL6AHWMKvx5qDDlH5CvsCIk/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1lbv54j0ocr4ND9xS5tIOg-vweppcWDJ1/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1eanvB2NhK4Kl1oicy3OOWfFi1p5HRWWM/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1zp7vuNsBy_6CmHmZWcZ0OlBmrv01-MIf/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1n2IJsnwieWs5R_OiNgxEm1641SKjPH8C/view?usp=drive_link</item>
+        <item>https://drive.google.com/file/d/1OztGgI0e-jPkCuAijBMWFf7BJGoUlTAg/view?usp=drive_link</item>
+    </string-array>
+
+</resources>

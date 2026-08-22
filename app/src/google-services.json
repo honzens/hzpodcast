@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "280105936346",
+    "project_id": "honzenproject",
+    "storage_bucket": "honzenproject.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280105936346:android:af3f1e667daa381d864ce3",
+        "android_client_info": {
+          "package_name": "com.honzens.hzpodcast"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP_fyxW26xXjm90ZEUxECEpJvLGqxjqWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280105936346:android:0797bfe8b71e8d94864ce3",
+        "android_client_info": {
+          "package_name": "com.honzens.readtasks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP_fyxW26xXjm90ZEUxECEpJvLGqxjqWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      },
+      "admob_app_id": "ca-app-pub-7774962919741171~6238836876"
+    }
+  ],
+  "configuration_version": "1"
+}

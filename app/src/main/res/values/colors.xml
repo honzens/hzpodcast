@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_background">#FF3F3F0F</color>
+    <color name="my_actionbar_color">#FF3F3F0F</color>
+    <color name="purple_100">#FFD7D7</color>
+    <color name="purple_99">#FEFEFE</color>
+    <color name="purple_200">#FFD700</color>
+    <color name="purple_500">#EEC940</color>
+    <color name="purple_700">#FFC125</color>
+    <color name="teal_200">#EEAE00</color>
+    <color name="teal_700">#ADAE20</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFA</color>
+    <color name="pure_white">#FFFFFFFF</color>
+    <color name="pure_red">#FFFF0000</color>
+    <color name="dark_red">#FF970000</color>
+    <color name="pure_green">#FF00FF00</color>
+    <color name="pure_blue">#FF0000FF</color>
+    <color name="light_gray">#FFD5D0D2</color>
+    <color name="light_gray_1">#FFD5D8D4</color>
+    <color name="light_gray_2">#FFD5DAD8</color>
+    <color name="dark_gray">#FF47331B</color>
+    <color name="rec_btn_background">#FFFA0000</color>
+
+    <color name="background_gray">#FFD5D0D2</color>
+    <!-- viewpager indicator -->
+    <color name="viewpager_idx">#FFF28500</color>
+
+</resources>

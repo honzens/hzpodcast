@@ -1,0 +1,135 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+}
+
+// Configure Java compilation options to show deprecation warnings
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << "-Xlint:deprecation"
+}
+
+android {
+    namespace 'com.honzens.hzpodcast'
+    compileSdk = 37
+
+    // Default configuration for all build variants
+    defaultConfig {
+        applicationId "com.honzens.hzpodcast"
+        minSdk 28
+        targetSdk 37
+        versionCode 26082101
+        versionName '1.0'
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures {
+        buildConfig = true
+    }
+    // Keystore configurations for signing the APK/Bundle
+    signingConfigs {
+        release {
+            storeFile file("../keystore/honzens.keystore")
+            storePassword "1129Janet"
+            keyAlias "honzens"
+            keyPassword "1129Janet"
+        }
+        debug {
+            storeFile file("../keystore/honzens.keystore")
+            storePassword "1129Janet"
+            keyAlias "honzens"
+            keyPassword "1129Janet"
+        }
+    }
+
+    // Build types configuration (Release and Debug)
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // Java version compatibility settings
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+
+    // Enable ViewBinding for easier interaction with UI components
+    buildFeatures {
+        viewBinding true
+    }
+
+    // Include legacy Apache HTTP library if required by older dependencies
+    useLibrary 'org.apache.http.legacy'
+    buildToolsVersion '37.0.0'
+
+    // Include dependency metadata in the build artifacts
+    dependenciesInfo {
+        includeInBundle true
+        includeInApk true
+    }
+
+    // Kotlin specific configurations
+    //kotlin {
+    //    jvmToolchain(21)
+    //}
+}
+
+dependencies {
+    // Core AndroidX and UI Libraries
+    implementation "androidx.activity:activity-ktx:1.13.0"
+    implementation 'androidx.appcompat:appcompat:1.8.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.11.0'
+    implementation 'com.google.android.material:material:1.14.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
+    
+    // Navigation Components
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.8'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.9.8'
+
+    // Google Play Services: Ads, Updates, and Location
+    implementation 'com.google.android.gms:play-services-ads:25.4.0'
+    implementation 'com.google.android.play:app-update:2.1.0'
+    implementation 'com.google.android.play:app-update-ktx:2.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.4.0'
+
+    // Testing Libraries
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
+
+    // Glide: Image Loading and Caching
+    /**
+     * Glide :- https://github.com/bumptech/glide
+     */
+    implementation 'com.github.bumptech.glide:annotations:5.0.9'
+    annotationProcessor 'com.github.bumptech.glide:compiler:5.0.9'
+    implementation ("com.github.bumptech.glide:glide:5.0.9@aar") {
+        transitive = true
+    }
+
+    // Networking: OkHttp and Retrofit
+    implementation 'com.squareup.okhttp3:okhttp:5.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:3.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:3.0.0'
+
+    // Kotlin Coroutines for asynchronous programming
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0'
+
+    // Firebase: Crashlytics and Analytics using BoM (Bill of Materials)
+    implementation(platform('com.google.firebase:firebase-bom:34.18.0'))
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
+
+    implementation 'cn.hutool:hutool-core:5.8.47'
+}
