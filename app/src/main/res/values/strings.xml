@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">網路播客</string>
-    <string name="menu_title_about">緣起</string>
+    <string name="app_name">播客收音機</string>
+    <string name="menu_title_about">關於</string>
     <string name="menu_title_feedback">意見回饋</string>
     <string name="url_feedback">https://docs.google.com/forms/d/e/1FAIpQLSdXOPbtDMCKtrXTGbJUpiydeMvTjUgM_SA3O1JQN6Zq_zeThg/viewform?usp=sf_link</string>
     <string name="menu_title_quit">關閉程式</string>
-    <string name="title_home">頻道搜尋</string>
-    <string name="title_channel">最愛頻道</string>
+    <string name="title_home">尋找播客</string>
+    <string name="title_channel">最愛播客</string>
     <string name="hint_title">使用說明</string>
     <string name="keyword">關鍵字</string>
     <string name="donate_support">支持創作者(斗內)</string>
@@ -88,6 +88,8 @@
     <string name="app_donate_desc">如果這個 App 對您有幫助，歡迎自由支持開發者。</string>
     <string name="app_donate_title">支持開發者 ❤️</string>
     <string name="add_to_favorite">加入最愛</string>
+    <string name="add_favor">加入最愛</string>
+    <string name="del_favor">移出最愛</string>
     //感謝文
     <string-array name="thanks">
         <item>點選廣告是您對我最大的支持，祝您事事順遂。</item>

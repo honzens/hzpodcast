@@ -1,10 +1,11 @@
 package com.honzens.hzpodcast.common;
 
 import android.content.Context;
+import android.os.Handler;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.honzens.hzpodcast.classes.FavorItem;
-import com.honzens.hzpodcast.classes.FeedItem;
+import com.honzens.hzpodcast.classes.FavorFeedItem;
 import com.honzens.hzpodcast.classes.ReadItem;
 
 import java.io.File;
@@ -17,12 +18,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class FeedCache {
-    //已讀功能
-    private static HashMap<String, FavorItem> m_favorMap;
+    private static HashMap<String, FavorFeedItem> m_favorMap;
     private static boolean update_favor_map = false;
+    public static List<FavorFeedItem> getFavorList() {
+        List<FavorFeedItem> list = new ArrayList<>();
+        if (FeedCache.m_favorMap == null)
+            FeedCache.m_favorMap = new HashMap<>();
+        for (String key : FeedCache.m_favorMap.keySet()) {
+            list.add(FeedCache.m_favorMap.get(key));
+        }
+        return list;
+    }
     public static void loadFavorMap(Context context) {
         try {
             File file = new File(context.getCacheDir(), "favor_set.json");
@@ -31,7 +39,7 @@ public class FeedCache {
                 return;
             }
             Gson gson = new Gson();
-            Type type = new TypeToken<HashMap<String, ReadItem>>(){}.getType();
+            Type type = new TypeToken<HashMap<String, FavorFeedItem>>(){}.getType();
             FileReader reader = new FileReader(file);
             FeedCache.m_favorMap = gson.fromJson(reader, type);
             reader.close();
@@ -59,7 +67,13 @@ public class FeedCache {
             FeedCache.m_favorMap = new HashMap<>();
         if (FeedCache.m_favorMap.containsKey(url))
             return;
-        FeedCache.m_favorMap.put(url, new FavorItem(url, channel_name, author));
+        FeedCache.m_favorMap.put(url, new FavorFeedItem(channel_name, author, url));
+        update_favor_map = true;
+    }
+    public static void delFavor(String url) {
+        if (FeedCache.m_favorMap == null)
+            FeedCache.m_favorMap = new HashMap<>();
+        FeedCache.m_favorMap.remove(url);
         update_favor_map = true;
     }
     public static boolean isFavor(String Key) {
@@ -96,7 +110,7 @@ public class FeedCache {
             e.printStackTrace();
         }
     }
-    public static void save_stock_cache(String sKey, Context context, List<FeedItem> list) {
+    public static void save_stock_cache(String sKey, Context context, List<FavorFeedItem> list) {
         String sFile = getStockCacheName(sKey);
         try {
             Gson gson = new Gson();
@@ -109,7 +123,7 @@ public class FeedCache {
             e.printStackTrace();
         }
     }
-    public static void save_news_cache(int idx, Context context, List<FeedItem> list) {
+    public static void save_news_cache(int idx, Context context, List<FavorFeedItem> list) {
         String sFile = getNewsCacheName(idx);
         try {
             Gson gson = new Gson();
@@ -122,18 +136,18 @@ public class FeedCache {
             e.printStackTrace();
         }
     }
-    public static List<FeedItem> load_stock_cache(String sKey, Context context) {
+    public static List<FavorFeedItem> load_stock_cache(String sKey, Context context) {
         String sFile = getStockCacheName(sKey);
         try {
             File file = new File(context.getCacheDir(), sFile);
             if (!file.exists())
                 return new ArrayList<>();
             Gson gson = new Gson();
-            Type type = new TypeToken<List<FeedItem>>(){}.getType();
+            Type type = new TypeToken<List<FavorFeedItem>>(){}.getType();
             FileReader reader = new FileReader(file);
-            List<FeedItem> list = gson.fromJson(reader, type);
+            List<FavorFeedItem> list = gson.fromJson(reader, type);
             reader.close();
-            for (FeedItem item : list) {
+            for (FavorFeedItem item : list) {
                 //item.isRead = (FeedCache.isRead(item.getUrl()));
             }
             return list;
@@ -143,18 +157,18 @@ public class FeedCache {
         }
         return new ArrayList<>();
     }
-    public static List<FeedItem> load_news_cache(int idx, Context context) {
+    public static List<FavorFeedItem> load_news_cache(int idx, Context context) {
         String sFile = getNewsCacheName(idx);
         try {
             File file = new File(context.getCacheDir(), sFile);
             if (!file.exists())
                 return new ArrayList<>();
             Gson gson = new Gson();
-            Type type = new TypeToken<List<FeedItem>>(){}.getType();
+            Type type = new TypeToken<List<FavorFeedItem>>(){}.getType();
             FileReader reader = new FileReader(file);
-            List<FeedItem> list = gson.fromJson(reader, type);
+            List<FavorFeedItem> list = gson.fromJson(reader, type);
             reader.close();
-            for (FeedItem item : list) {
+            for (FavorFeedItem item : list) {
                 //item.isRead = (FeedCache.isRead(item.getUrl()));
             }
             return list;

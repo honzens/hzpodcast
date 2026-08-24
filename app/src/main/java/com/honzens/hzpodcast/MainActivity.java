@@ -31,6 +31,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.honzens.hzpodcast.common.utility;
 import com.honzens.hzpodcast.databinding.ActivityMainBinding;
 import com.honzens.hzpodcast.common.FeedCache;
 
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         //=============
         m_handler = new Handler(Looper.getMainLooper());
         global_params.set_save_path(this);
+        utility.hard_load_current_setting(this);
+        FeedCache.loadFavorMap(this);
         //------------
         //google ads=====
         //MobileAds.setRequestConfiguration(

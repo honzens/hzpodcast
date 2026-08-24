@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,17 +47,18 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.VH> {
         h.title.setText(p.collectionName);
         h.author.setText(p.artistName);
         h.feed.setText(p.feedUrl);
-        if (!p.isFavorite()) {
-            h.favoriteButton.setText("加入最愛");
-            h.favoriteButton.setOnClickListener(v -> {
+        boolean bFavor = FeedCache.isFavor(p.feedUrl);
+        if (!bFavor) {
+            h.btn_add_favor.setVisibility(View.VISIBLE);
+            h.btn_add_favor.setOnClickListener(v -> {
                 // 加入最愛
                 FeedCache.addFavor(p.feedUrl, p.collectionName, p.artistName);
-                p.setFavorite(!p.isFavorite());
-                h.favoriteButton.setVisibility(View.GONE);
+                h.btn_add_favor.setVisibility(View.GONE);
+                m_handler.sendEmptyMessage(1);
             });
         }
         else {
-            h.favoriteButton.setVisibility(View.GONE);
+            h.btn_add_favor.setVisibility(View.GONE);
         }
     }
 
@@ -64,13 +66,13 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.VH> {
 
     static class VH extends RecyclerView.ViewHolder {
         TextView title, author, feed;
-        MaterialButton favoriteButton;
+        ImageButton btn_add_favor;
         VH(@NonNull View v) {
             super(v);
             title = v.findViewById(R.id.title);
             author = v.findViewById(R.id.author);
             feed = v.findViewById(R.id.feed);
-            favoriteButton = itemView.findViewById(R.id.favoriteButton);
+            btn_add_favor = itemView.findViewById(R.id.btn_add_favor);
         }
     }
 }

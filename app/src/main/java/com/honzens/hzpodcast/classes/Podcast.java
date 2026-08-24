@@ -8,13 +8,11 @@ public class Podcast {
     public String genre = "";
     public int trackCount;
     public long collectionId;
-    public boolean isFavorite = false;
-
-    public void setFavorite(boolean b) {
-        isFavorite = b;
-    }
-
-    public boolean isFavorite() {
-        return isFavorite;
-    }
+    //public boolean isFavorite = false;
+    //public void setFavorite(boolean b) {
+    //    isFavorite = b;
+    //}
+    //public boolean isFavorite() {
+    //    return isFavorite;
+    //}
 }

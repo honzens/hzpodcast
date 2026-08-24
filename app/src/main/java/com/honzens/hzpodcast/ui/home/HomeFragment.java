@@ -42,7 +42,10 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -55,27 +58,28 @@ public class HomeFragment extends Fragment {
         ((MainActivity) ctx).setActionBarText(getString(R.string.title_home));
         Button btnSearch = binding.searchButton;
         RecyclerView recycler = binding.recyclerView;
-        PodcastAdapter adapter = new PodcastAdapter(ctx, m_handler_callback);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
-        binding.recyclerView.addItemDecoration(new DividerItemDecoration(ctx, DividerItemDecoration.VERTICAL));
-        recycler.setAdapter(adapter);
-        //binding.recyclerView.setBackgroundColor(Color.BLACK);
         if (m_homeViewModel == null)
             m_homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         if (m_handler_callback == null) {
             m_handler_callback = new Handler(Looper.getMainLooper()) {
                 public void handleMessage(@NonNull Message msg) {
                     switch (msg.what) {
-                         case 1:
+                        case 1:
                             // 收到 message 1
+                            FeedCache.saveFavorMap(requireContext());
                             break;
-                         case 2:
+                        case 2:
                             // 收到 message 2
                             break;
                     }
                 }
             };
         }
+        PodcastAdapter adapter = new PodcastAdapter(ctx, m_handler_callback);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
+        binding.recyclerView.addItemDecoration(new DividerItemDecoration(ctx, DividerItemDecoration.VERTICAL));
+        recycler.setAdapter(adapter);
+        //binding.recyclerView.setBackgroundColor(Color.BLACK);
         //
         m_homeViewModel.getFeeds().observe(
                 getViewLifecycleOwner(),

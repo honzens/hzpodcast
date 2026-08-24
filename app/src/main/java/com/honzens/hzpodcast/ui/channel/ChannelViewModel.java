@@ -2,13 +2,15 @@ package com.honzens.hzpodcast.ui.channel;
 
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.honzens.hzpodcast.classes.FeedItem;
+
+import com.honzens.hzpodcast.classes.Episode;
+import com.honzens.hzpodcast.classes.Programs;
 import com.honzens.hzpodcast.common.AtomParser;
-import com.honzens.hzpodcast.common.FeedCache;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,12 +23,42 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ChannelViewModel extends ViewModel {
-    private final MutableLiveData<List<FeedItem>> m_feeds = new MutableLiveData<>();
-    public LiveData<List<FeedItem>> getFeeds()
+    private final MutableLiveData<List<Episode>> m_feeds = new MutableLiveData<>();
+    public LiveData<List<Episode>> getFeeds()
     {
         return m_feeds;
     }
-    public void loadAtom(int idx, String url, Context context)
+    public void loadPrograms(String url, Context context)
     {
+        //List<ProgramItem> items = FeedCache.load_news_cache(idx, context);
+        //if (!items.isEmpty()) {
+        //    m_feeds.postValue(items);
+        //    return;
+        //}
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                List<Episode> news_items = new ArrayList<>();
+                m_feeds.postValue(news_items);
+            }
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try {
+                    //String s = response.body().string();
+                    Programs item = AtomParser.parsePodcast(response.body().byteStream());
+                    //List<Programs> news_items = AtomParser.parse(response.body().byteStream());
+                    m_feeds.postValue(item.episodes);
+                    //FeedCache.save_news_cache(idx, context, news_items);
+                } catch (Exception e) {
+                    List<Episode> news_items = new ArrayList<>();
+                    m_feeds.postValue(news_items);
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

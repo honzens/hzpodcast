@@ -1,113 +1,79 @@
 package com.honzens.hzpodcast.common;
 
 import android.util.Xml;
-import com.honzens.hzpodcast.classes.FeedItem;
+
+import com.honzens.hzpodcast.classes.Episode;
+import com.honzens.hzpodcast.classes.Programs;
+
 import org.xmlpull.v1.XmlPullParser;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AtomParser {
-    public static List<FeedItem> parse(InputStream input) throws Exception
-    {
-        List<FeedItem> result = new ArrayList<>();
+    public static Programs parsePodcast(InputStream inputStream) throws Exception {
+        Programs podcast = new Programs();
         XmlPullParser parser = Xml.newPullParser();
-        parser.setInput(input, "UTF-8");
-        int event = parser.getEventType();
-        boolean isAtom = false;
-        while (event != XmlPullParser.END_DOCUMENT) {
-            if (event == XmlPullParser.START_TAG) {
-                String name = parser.getName();
-                // 判斷 Atom
-                if ("feed".equals(name)) {
-                    isAtom = true;
-                }
-                // RSS item
-                if (!isAtom && "item".equals(name)) {
-                    FeedItem item = parseRSSItem(parser);
-                    result.add(item);
-                }
-                // Atom entry
-                if (isAtom && "entry".equals(name)) {
-                    FeedItem item = parseAtomEntry(parser);
-                    result.add(item);
-                }
-            }
-            event = parser.next();
-        }
-        return result;
-    }
-    private static FeedItem parseRSSItem(XmlPullParser parser)
-            throws Exception {
-        FeedItem item = new FeedItem();
-        int event;
-        while ((event = parser.next()) != XmlPullParser.END_DOCUMENT) {
-            if (event == XmlPullParser.START_TAG) {
-                String name = parser.getName();
-                switch(name) {
-                    case "title":
-                        item.setTitle(parser.nextText());
-                        break;
-                    case "link":
-                        item.setUrl(parser.nextText());
-                        break;
-                    case "description":
-                        item.setSummary(parser.nextText());
-                        break;
-                    case "pubDate":
-                        item.setPubDate(parser.nextText());
-                        break;
-                }
-            }
-            else if (event == XmlPullParser.END_TAG
-                    && "item".equals(parser.getName())) {
-                break;
-            }
-        }
-        return item;
-    }
-    private static FeedItem parseAtomEntry(XmlPullParser parser)
-            throws Exception {
-        FeedItem item = new FeedItem();
-        int event;
-        while ((event = parser.next()) != XmlPullParser.END_DOCUMENT) {
-            if (event == XmlPullParser.START_TAG) {
-                String name = parser.getName();
-                switch(name) {
-                    case "title":
-                        item.setTitle(parser.nextText());
-                        break;
-                    case "link":
-                        String href = parser.getAttributeValue(null,"href");
+        parser.setInput(inputStream, "UTF-8");
+        Episode episode = null;
+        int eventType = parser.getEventType();
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                String tag = parser.getName();
+                // channel
+                if (episode == null) {
+                    if ("title".equals(tag)) {
+                        podcast.title = parser.nextText();
+                    } else if ("description".equals(tag)) {
+                        podcast.description = parser.nextText();
+                    } else if ("author".equals(tag)
+                            || "itunes:author".equals(tag)) {
+                        podcast.author = parser.nextText();
+                    } else if ("image".equals(tag)) {
+                        String href = parser.getAttributeValue(
+                                null, "href");
                         if (href != null) {
-                            item.setUrl(href);
+                            podcast.imageUrl = href;
                         }
-                        break;
-                    case "summary":
-                        item.setSummary(parser.nextText());
-                        break;
-                    case "content":
-                        item.setContent(parser.nextText());
-                        break;
-                    case "published":
-                        item.setPubDate(parser.nextText());
-                        break;
-                    case "updated":
-                        if(item.pubDate != null) {
-                            if (item.pubDate.isEmpty())
-                                item.setPubDate(parser.nextText());
+                    }
+                }
+                // item
+                if ("item".equals(tag)) {
+                    episode = new Episode();
+                } else if (episode != null) {
+                    if ("title".equals(tag)) {
+                        episode.title = parser.nextText();
+                    } else if ("description".equals(tag)) {
+                        episode.description = parser.nextText();
+                    } else if ("pubDate".equals(tag)) {
+                        episode.pubDate = parser.nextText();
+                    } else if ("duration".equals(tag)) {
+                        episode.duration = parser.nextText();
+                    } else if ("enclosure".equals(tag)) {
+                        episode.audioUrl =
+                                parser.getAttributeValue(null, "url");
+                        episode.audioType =
+                                parser.getAttributeValue(null, "type");
+                        String length =
+                                parser.getAttributeValue(null, "length");
+                        if (length != null) {
+                            try {
+                                episode.audioLength =
+                                        Long.parseLong(length);
+                            } catch (NumberFormatException ignored) {
+                            }
                         }
-                        else {
-                            item.setPubDate(parser.nextText());
-                        }
-                        break;
+                    }
+                }
+            } else if (eventType == XmlPullParser.END_TAG) {
+                if ("item".equals(parser.getName())
+                        && episode != null) {
+                    podcast.episodes.add(episode);
+                    episode = null;
                 }
             }
-            else if(event == XmlPullParser.END_TAG
-                    && "entry".equals(parser.getName())) {
-                break;
-            }
+            eventType = parser.next();
         }
-        return item;
+        return podcast;
     }
 }

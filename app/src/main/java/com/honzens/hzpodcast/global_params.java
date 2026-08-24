@@ -3,6 +3,8 @@ package com.honzens.hzpodcast;
 import android.content.Context;
 import android.util.Log;
 
+import com.honzens.hzpodcast.common.utility;
+
 public class global_params {
     //message defined
     public static int m_color_write = 0xFFFFFFFF;
@@ -16,6 +18,7 @@ public class global_params {
     public static String m_area = null;
     public static String m_code_last = null;
     public static void initialize() {
+
     }
 
     public static String rec_dir;

@@ -5,30 +5,19 @@ import android.content.Context;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.honzens.hzpodcast.classes.FeedItem;
+
 import com.honzens.hzpodcast.classes.Podcast;
-import com.honzens.hzpodcast.common.AtomParser;
 import com.honzens.hzpodcast.common.FeedCache;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -80,7 +69,6 @@ public class HomeViewModel extends ViewModel {
                             p.trackCount = item.optInt("trackCount");
                             p.collectionId = item.optLong("collectionId");
                             if (!p.feedUrl.isEmpty()) {
-                                p.setFavorite(FeedCache.isFavor(p.feedUrl));
                                 news_items.add(p);
                             }
                         }

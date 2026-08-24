@@ -1,7 +1,5 @@
 package com.honzens.hzpodcast.ui.channel;
 
-import static com.honzens.hzpodcast.common.utility.hard_save_current_setting;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,9 +15,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,7 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class ChannelFragment extends Fragment {
     private FragmentChannelBinding binding;
-    FeedAdapter m_adapter;
+    private FavorFeedAdapter m_favor_adapter;
+    private ProgramAdapter m_program_adapter;
     private Handler m_handler_callback;
     private ChannelViewModel m_channelViewModel;
     public ChannelFragment() {
@@ -37,29 +34,35 @@ public class ChannelFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        m_favor_adapter.setData(FeedCache.getFavorList());
     }
-
+    public void onPause() {
+        super.onPause();
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (MainActivity.mFirebaseAnalytics != null) {
             Bundle bundle = new Bundle();
-            bundle.putString("screen", "AtomFragment");
+            bundle.putString("screen", "ChannelFragment");
             MainActivity.mFirebaseAnalytics.logEvent("open_screen", bundle);
         }
         Context ctx = requireContext();
         ((MainActivity) ctx).setActionBarText(getString(R.string.title_channel));
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
-        binding.recyclerView.addItemDecoration(new DividerItemDecoration(ctx, DividerItemDecoration.VERTICAL));
+        binding.btnBack.setOnClickListener(v -> switch_to_favor());
+        binding.recyclerViewChannels.setLayoutManager(new LinearLayoutManager(ctx));
+        binding.recyclerViewChannels.addItemDecoration(new DividerItemDecoration(ctx, DividerItemDecoration.VERTICAL));
         //binding.recyclerView.setBackgroundColor(Color.BLACK);
         if (m_channelViewModel == null)
             m_channelViewModel = new ViewModelProvider(this).get(com.honzens.hzpodcast.ui.channel.ChannelViewModel.class);
-        if (m_adapter == null) {
+        if (m_favor_adapter == null) {
             if (m_handler_callback == null) {
                 m_handler_callback = new Handler(Looper.getMainLooper()) {
                     public void handleMessage(@NonNull Message msg) {
                         switch (msg.what) {
                             case 1:
+                                String url = (String) msg.obj;
+                                m_channelViewModel.loadPrograms(url, ctx);
                                 break;
                             case 2:
                                 break;
@@ -67,30 +70,19 @@ public class ChannelFragment extends Fragment {
                     }
                 };
             }
-            m_adapter = new FeedAdapter(ctx, m_handler_callback);
-            binding.recyclerView.setAdapter(m_adapter);
+            m_favor_adapter = new FavorFeedAdapter(ctx, m_handler_callback);
+            binding.recyclerViewChannels.setAdapter(m_favor_adapter);
+            m_program_adapter = new ProgramAdapter(ctx, m_handler_callback);
+            binding.recyclerViewPrograms.setAdapter(m_program_adapter);
         }
-        //
-        //        //WebSettings settings = binding.webView.getSettings();
-        //        //settings.setJavaScriptEnabled(true);
-        //        binding.webView.setWebViewClient(new WebViewClient() {
-        //            @Override
-        //            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-        //                return true;
-        //            }
-        //            @Override
-        //            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        //                return true;  // 舊版 Android
-        //            }
-        //        });
-        //        //webView.loadUrl("https://www.google.com");
         //===========
         m_channelViewModel.getFeeds().observe(
                 getViewLifecycleOwner(),
                 data_items -> {
-                    m_adapter.setData(data_items);
-                    binding.recyclerView.post(() ->
-                            binding.recyclerView.scrollToPosition(0)
+                    m_program_adapter.setData(data_items);
+                    switch_to_program();
+                    binding.recyclerViewPrograms.post(() ->
+                            binding.recyclerViewPrograms.scrollToPosition(0)
                     );
                 });
     }
@@ -104,7 +96,16 @@ public class ChannelFragment extends Fragment {
         View root = binding.getRoot();
         return root;
     }
-
+    private void switch_to_program() {
+        binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
+        binding.recyclerViewChannels.setVisibility(View.GONE);
+        binding.btnBack.setVisibility(View.VISIBLE);
+    }
+    private void switch_to_favor() {
+        binding.recyclerViewPrograms.setVisibility(View.GONE);
+        binding.recyclerViewChannels.setVisibility(View.VISIBLE);
+        binding.btnBack.setVisibility(View.GONE);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
