@@ -90,32 +90,7 @@
     <string name="add_to_favorite">加入最愛</string>
     <string name="add_favor">加入最愛</string>
     <string name="del_favor">移出最愛</string>
-    //感謝文
-    <string-array name="thanks">
-        <item>點選廣告是您對我最大的支持，祝您事事順遂。</item>
-        <item>您需要任何版本改進嗎?請留言告訴我，感謝。</item>
-        <item>點選廣告是改版的唯一資金來源，感謝有您。</item>
-        <item>點選廣告可資助程式開發與上架費用，祝您一生平安。</item>
-    </string-array>
-   //大佛圖檔
-    <string-array name="image_url">
-        <item>https://drive.google.com/file/d/16rtxEHqUyiyD22dQzKZ_6JOC8jvYKhM7/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1MFk6uKp0yq5Eh-_h8dv8FAS_YOt9xuGm/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1ZA-gAEr3x0JeiKPopOi1hSl7FTNRsy11/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1cWFn1l23xJyIQTGc2Q-PR2qLPZxBXtC6/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1CeUYEBbwn8t3ccQ8bpQb305LGlO7fIF6/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1oSpp7_1K3dcLGC6AKZ8G_wEYMUClxplQ/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1h09mYBQOdhd9YM9_JFIzUVfLe466G7sX/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1AgHS2quw0iGJaxnPJcsTvk75YL2muWXD/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1jV7AvzWeO2QT09W2VsRb-8tcfYDUDVP_/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1VqpMjNLJHrZ1Vr_otVt42ZNstTbs5cTs/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1Dfenu1ZouOkjt6kEYy0bJCCV66cWoJJN/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1OEsROPkSyYL6AHWMKvx5qDDlH5CvsCIk/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1lbv54j0ocr4ND9xS5tIOg-vweppcWDJ1/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1eanvB2NhK4Kl1oicy3OOWfFi1p5HRWWM/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1zp7vuNsBy_6CmHmZWcZ0OlBmrv01-MIf/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1n2IJsnwieWs5R_OiNgxEm1641SKjPH8C/view?usp=drive_link</item>
-        <item>https://drive.google.com/file/d/1OztGgI0e-jPkCuAijBMWFf7BJGoUlTAg/view?usp=drive_link</item>
-    </string-array>
+    <string name="enter_program">進入播客</string>
+    <string name="go_back">返回</string>
 
 </resources>

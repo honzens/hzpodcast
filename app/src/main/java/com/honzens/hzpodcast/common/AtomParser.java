@@ -7,8 +7,6 @@ import com.honzens.hzpodcast.classes.Programs;
 
 import org.xmlpull.v1.XmlPullParser;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AtomParser {
     public static Programs parsePodcast(InputStream inputStream) throws Exception {
@@ -49,17 +47,19 @@ public class AtomParser {
                         episode.pubDate = parser.nextText();
                     } else if ("duration".equals(tag)) {
                         episode.duration = parser.nextText();
-                    } else if ("enclosure".equals(tag)) {
-                        episode.audioUrl =
-                                parser.getAttributeValue(null, "url");
-                        episode.audioType =
-                                parser.getAttributeValue(null, "type");
-                        String length =
-                                parser.getAttributeValue(null, "length");
+                    } else if ("image".equalsIgnoreCase(tag)) {
+                        String href = parser.getAttributeValue(null, "href");
+                        if (href != null) {
+                            episode.imageUrl = href;
+                        }
+                    }
+                    else if ("enclosure".equals(tag)) {
+                        episode.audioUrl = parser.getAttributeValue(null, "url");
+                        episode.audioType = parser.getAttributeValue(null, "type");
+                        String length = parser.getAttributeValue(null, "length");
                         if (length != null) {
                             try {
-                                episode.audioLength =
-                                        Long.parseLong(length);
+                                episode.audioLength = Long.parseLong(length);
                             } catch (NumberFormatException ignored) {
                             }
                         }
