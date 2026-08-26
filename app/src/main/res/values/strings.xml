@@ -6,6 +6,7 @@
     <string name="menu_title_quit">關閉程式</string>
     <string name="title_home">尋找播客</string>
     <string name="title_channel">最愛播客</string>
+    <string name="title_download">下載音檔</string>
     <string name="hint_title">使用說明</string>
     <string name="keyword">關鍵字</string>
     <string name="donate_support">支持創作者(斗內)</string>

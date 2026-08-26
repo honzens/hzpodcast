@@ -17,4 +17,10 @@
         android:label="@string/title_channel"
         tools:layout="@layout/fragment_channel" />
 
+    <fragment
+        android:id="@+id/navigation_download"
+        android:name="com.honzens.hzpodcast.ui.download.DownloadFragment"
+        android:label="@string/title_download"
+        tools:layout="@layout/fragment_download" />
+
 </navigation>

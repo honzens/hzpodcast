@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_favor_black_24dp"
         android:title="@string/title_channel"/>
 
+    <item
+        android:id="@+id/navigation_download"
+        android:icon="@drawable/ic_favor_black_24dp"
+        android:title="@string/title_download"/>
+
 </menu>
