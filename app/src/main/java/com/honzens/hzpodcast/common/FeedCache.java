@@ -1,12 +1,11 @@
 package com.honzens.hzpodcast.common;
 
 import android.content.Context;
-import android.os.Handler;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.honzens.hzpodcast.classes.FavorFeedItem;
-import com.honzens.hzpodcast.classes.ReadItem;
+
 
 import java.io.File;
 import java.io.FileReader;
@@ -22,6 +21,7 @@ import java.util.Locale;
 public class FeedCache {
     private static HashMap<String, FavorFeedItem> m_favorMap;
     private static boolean update_favor_map = false;
+    //最愛播客列表
     public static List<FavorFeedItem> getFavorList() {
         List<FavorFeedItem> list = new ArrayList<>();
         if (FeedCache.m_favorMap == null)
@@ -29,11 +29,12 @@ public class FeedCache {
         for (String key : FeedCache.m_favorMap.keySet()) {
             list.add(FeedCache.m_favorMap.get(key));
         }
+        list.sort((o1, o2) -> {return Math.toIntExact(o2.add_time - o1.add_time);});
         return list;
     }
     public static void loadFavorMap(Context context) {
         try {
-            File file = new File(context.getCacheDir(), "favor_set.json");
+            File file = new File(context.getCacheDir(), "favor_lst.json");
             if (!file.exists()) {
                 FeedCache.m_favorMap = new HashMap<>();
                 return;
@@ -53,7 +54,7 @@ public class FeedCache {
         try {
             Gson gson = new Gson();
             String json = gson.toJson(FeedCache.m_favorMap);
-            File file = new File(context.getCacheDir(), "favor_set.json");
+            File file = new File(context.getCacheDir(), "favor_lst.json");
             FileWriter writer = new FileWriter(file);
             writer.write(json);
             writer.close();

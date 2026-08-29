@@ -28,6 +28,7 @@ public class ChannelViewModel extends ViewModel {
     {
         return m_feeds;
     }
+    public String channel_name = "";
     public void loadPrograms(String url, Context context)
     {
         //List<ProgramItem> items = FeedCache.load_news_cache(idx, context);
@@ -43,6 +44,7 @@ public class ChannelViewModel extends ViewModel {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 List<Episode> news_items = new ArrayList<>();
+                channel_name = "";
                 m_feeds.postValue(news_items);
             }
             @Override
@@ -50,11 +52,12 @@ public class ChannelViewModel extends ViewModel {
                 try {
                     //String s = response.body().string();
                     Programs item = AtomParser.parsePodcast(response.body().byteStream());
-                    //List<Programs> news_items = AtomParser.parse(response.body().byteStream());
+                    channel_name = item.title;
                     m_feeds.postValue(item.episodes);
                     //FeedCache.save_news_cache(idx, context, news_items);
                 } catch (Exception e) {
                     List<Episode> news_items = new ArrayList<>();
+                    channel_name = "";
                     m_feeds.postValue(news_items);
                     e.printStackTrace();
                 }

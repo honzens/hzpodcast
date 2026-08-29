@@ -41,6 +41,7 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
     private final Handler m_playerHandler = new Handler(Looper.getMainLooper());
     private Runnable m_playerProgressRunnable;
     private ChannelViewModel m_channelViewModel;
+    private byte m_page = 0;
     public ChannelFragment() {
         super();
     }
@@ -48,9 +49,15 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
     public void onResume() {
         super.onResume();
         m_favor_adapter.setData(FeedCache.getFavorList());
+        m_handler_callback.post(m_playerProgressRunnable);
     }
     public void onPause() {
         super.onPause();
+        m_handler_callback.removeCallbacks(m_playerProgressRunnable);
+        if (m_player != null && m_player.isPlaying()) {
+            m_player.pause();
+            binding.playerView.btnPlayPause.setText("▶");
+        }
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -73,15 +80,15 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                             long duration = m_player.getDuration();
                             if (duration > 0) {
                                 int progress = (int)((position * 1000) / duration);
-                                binding.playerSeekBar.setProgress(progress);
-                                binding.txtCurrentTime.setText(formatTime(position));
-                                binding.txtDuration.setText(formatTime(duration));
+                                binding.playerView.playerSeekBar.setProgress(progress);
+                                binding.playerView.txtCurrentTime.setText(formatTime(position));
+                                binding.playerView.txtDuration.setText(formatTime(duration));
                             }
                         }
                         m_playerHandler.postDelayed(this,500);
                     }
                 };
-        binding.playerSeekBar.setOnSeekBarChangeListener(
+        binding.playerView.playerSeekBar.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -89,7 +96,7 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                             long duration = m_player.getDuration();
                             if (duration > 0) {
                                 long position = duration * progress / 1000;
-                                binding.txtCurrentTime.setText(formatTime(position));
+                                binding.playerView.txtCurrentTime.setText(formatTime(position));
                             }
                         }
                     }
@@ -105,25 +112,25 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                         }
                     }
                 });
-        binding.btnPlayPause.setOnClickListener(v -> {
+        binding.playerView.btnPlayPause.setOnClickListener(v -> {
             if (m_player == null) {
                 return;
             }
             if (m_player.isPlaying()) {
                 m_player.pause();
-                binding.btnPlayPause.setText("▶");
+                binding.playerView.btnPlayPause.setText("▶");
             } else {
                 m_player.play();
-                binding.btnPlayPause.setText("❚❚");
+                binding.playerView.btnPlayPause.setText("❚❚");
             }
         });
-        binding.btnBack15.setOnClickListener(v -> {
+        binding.playerView.btnBack15.setOnClickListener(v -> {
             if (m_player != null) {
                 long position = m_player.getCurrentPosition();
                 m_player.seekTo(Math.max(0, position - 15_000));
             }
         });
-        binding.btnForward15.setOnClickListener(v -> {
+        binding.playerView.btnForward15.setOnClickListener(v -> {
             if (m_player != null) {
                 long position = m_player.getCurrentPosition();
                 long duration = m_player.getDuration();
@@ -145,6 +152,7 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                             case 1:
                                 String url = (String) msg.obj;
                                 m_channelViewModel.loadPrograms(url, ctx);
+                                m_handler_callback.postDelayed(() -> switch_to_program(), 800);
                                 break;
                             case 2:
                                 break;
@@ -161,8 +169,8 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
         m_channelViewModel.getFeeds().observe(
                 getViewLifecycleOwner(),
                 data_items -> {
+                    binding.txtChannelName.setText(m_channelViewModel.channel_name);
                     m_program_adapter.setData(data_items);
-                    switch_to_program();
                     binding.recyclerViewPrograms.post(() ->
                             binding.recyclerViewPrograms.scrollToPosition(0)
                     );
@@ -171,27 +179,30 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ChannelViewModel channelViewModel =
-                new ViewModelProvider(this).get(com.honzens.hzpodcast.ui.channel.ChannelViewModel.class);
+        m_channelViewModel = new ViewModelProvider(this).get(ChannelViewModel.class);
 
         binding = FragmentChannelBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         return root;
     }
     private void switch_to_program() {
-        binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
         binding.recyclerViewChannels.setVisibility(View.GONE);
+        //
+        binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
         binding.btnBack.setVisibility(View.VISIBLE);
-        binding.miniPlayer.setVisibility(View.VISIBLE);
+        binding.playerContainer.setVisibility(View.VISIBLE);
+        binding.txtChannelName.setVisibility(View.VISIBLE);
     }
     private void switch_to_favor() {
-        binding.recyclerViewPrograms.setVisibility(View.GONE);
         binding.recyclerViewChannels.setVisibility(View.VISIBLE);
+        //
+        binding.recyclerViewPrograms.setVisibility(View.GONE);
         binding.btnBack.setVisibility(View.GONE);
-        binding.miniPlayer.setVisibility(View.GONE);
+        binding.playerContainer.setVisibility(View.GONE);
+        binding.txtChannelName.setVisibility(View.GONE);
         if (m_player.isPlaying())
             m_player.stop();
-        binding.playerSeekBar.setProgress(0);
+        //binding.playerView.playerSeekBar.setProgress(0);
     }
     @Override
     public void onDestroyView() {
@@ -228,7 +239,8 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
         m_player.prepare();
         m_player.play();
         m_playerProgressRunnable.run();
-        binding.btnPlayPause.setText("❚❚");
+        binding.playerView.txtPlayerTitle.setText(episode.title);
+        binding.playerView.btnPlayPause.setText("❚❚");
 
     }
     @Override

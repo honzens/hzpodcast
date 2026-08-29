@@ -60,8 +60,7 @@
     <string name="EmptyString" />
     <string name="calendar">日曆</string>
     <string name="go_to_today">滑回今天</string>
-    <string name="play">Play</string>
-    <string name="my_ad">自己的廣告</string>
+    <string name="play">播放</string>
     <string name="todo">TODO</string>
     <string name="bless_word">輸入問候語</string>
     <string name="default_hope">祝您 平安喜樂</string>
@@ -93,5 +92,6 @@
     <string name="del_favor">移出最愛</string>
     <string name="enter_program">進入播客</string>
     <string name="go_back">返回</string>
+    <string name="delete">刪除</string>
 
 </resources>
