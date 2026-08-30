@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:id="@+id/rootLayout"
     tools:context=".ui.channel.ChannelFragment">
 
@@ -13,6 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,6 +28,7 @@
         android:contentDescription="@string/go_back"
         android:padding="0dp"
         android:src="@drawable/ic_to_left"
+        android:background="@android:color/transparent"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,14 +37,26 @@
         android:id="@+id/txtChannelName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="@string/loading"
         android:textSize="20sp"
         android:textStyle="bold"
         android:padding="12dp"
+        android:textColor="@color/white"
         android:visibility="invisible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_back"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_programs"
@@ -49,6 +64,7 @@
         android:layout_height="0dp"
         android:scrollbars="vertical"
         android:visibility="invisible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_back"

@@ -29,7 +29,7 @@ public class ChannelViewModel extends ViewModel {
         return m_feeds;
     }
     public String channel_name = "";
-    public void loadPrograms(String url, Context context)
+    public void loadPrograms(String url, Context ctx)
     {
         //List<ProgramItem> items = FeedCache.load_news_cache(idx, context);
         //if (!items.isEmpty()) {

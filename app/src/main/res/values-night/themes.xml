@@ -18,7 +18,6 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
-        <item name="colorButtonNormal">@color/rec_btn_background</item>
     </style>
 
     <style name="MenuTextStyle">

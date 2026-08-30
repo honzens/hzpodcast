@@ -2,10 +2,12 @@ package com.honzens.hzpodcast;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +19,7 @@ import androidx.activity.result.IntentSenderRequest;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
@@ -30,6 +33,15 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.appupdate.AppUpdateOptions;
+import com.google.android.play.core.install.InstallException;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallErrorCode;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.honzens.hzpodcast.common.utility;
 import com.honzens.hzpodcast.databinding.ActivityMainBinding;
@@ -118,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
         //update version
         updateVersion();
     }
-    public void updateVersion() {
-        /*
+     private void updateVersion() {
         AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
         Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
 
@@ -153,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.e("Update", "Get update info failed", e);
         });
-        */
     }
     public void setActionBarText(String sTitle)
     {
@@ -164,19 +174,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void checkMyPermission() {
-        ArrayList<String> perms = new ArrayList<>();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                perms.add(android.Manifest.permission.READ_EXTERNAL_STORAGE);
-            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                perms.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            perms.add(android.Manifest.permission.RECORD_AUDIO);
-        }
-        if (!perms.isEmpty()) {
-            requestPermissions(perms.toArray(new String[0]), 200);
-        }
+
     }
 
     @Override
@@ -231,6 +229,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_about) {
+            String sMessage = "希望一個能讓眼睛休息的娛樂軟體，跟隨大家一起健康生活!";
+            new AlertDialog.Builder(this)
+                    .setTitle("說明")
+                    .setMessage(sMessage)
+                    .setPositiveButton("確定", (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .show();
             return true;
         }
         else if (id == R.id.menu_quit) {
@@ -238,6 +244,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.menu_feedback) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_feedback)));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);

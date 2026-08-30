@@ -14,44 +14,10 @@
     <string name="return1">迴向</string>
     <string name="delete_item">刪除</string>
     <string name="automatic">自動完成並迴向</string>
-    <string name="voicehelp">需要語音輔助說明</string>
-    <string name="descr_record_0">按下右側【麥克風圖示】可開始錄製，再按一次即完成錄製</string>
-    <string name="return_sample_show">顯示範文</string>
-    <string name="return_sample_hide">隱藏</string>
-    <string-array name="return_sample">
-        <item>陽上報恩人＿＿＿，每天念%d句【南無阿摩陀佛】，把念佛功德迴向給＿＿＿的歷代宗親，冤親債主，地基主，求佛菩薩接引祂們往生西方極樂世界，離苦得樂。並求佛菩薩加持自己及親人們業障消除，遠離惡緣，親近善緣，福慧增長，身體健康。</item>
-        <item>願消三丈諸煩惱，願得智慧真明瞭，我願罪障悉消除，世世常行菩薩道。</item>
-        <item>願以此功德，普及於一切。我等與眾生，皆共成佛道。</item>
-        <item>願以此功德，迴向給所有眾生，使眾生早日超脫苦海，往生西方極樂淨土。</item>
-        <item>願以此功德。莊嚴佛淨土。上報四重恩。下濟三途苦。若有見聞者。悉發菩提心。盡此一報身。同生極樂國。</item>
-    </string-array>
     <string name="delete_record_hint">長按記錄後即可刪除該筆紀錄</string>
     <string name="change_template_hint">滑動範文即可再顯示其他範文</string>
-    <string name="view_category">圖像</string>
-    <string name="view_buddha">佛像</string>
-    <string name="view_landscape">風景</string>
-    <string name="view_fruit">水果</string>
-    <string name="reader">修道者</string>
-    <string name="little_boy">沙彌</string>
-    <string name="junior">修禪</string>
-    <string name="older_man">老僧</string>
-    <string name="big_fontsize">較大</string>
-    <string name="normal_fontsize">適中</string>
-    <string name="small_fontsize">較小</string>
-    <string name="font_size_title">字體</string>
     <string name="error">錯誤</string>
-    <string name="fail_to_save_record">儲存迴向記錄失敗!</string>
-    <string name="notfound0">未找到您錄製的念佛聲，您可按下左側【麥克風圖示】開始錄製，再按一次即完成錄製</string>
-    <string name="notfound1">未找到您錄製的迴向聲，您可按下左側【麥克風圖示】開始錄製，再按一次即完成錄製</string>
-    <!-- release : ca-app-pub-7774962919741171/7850562750 -->
-    <!-- testing : ca-app-pub-3940256099942544/6300978111 -->
-    <string name="vpon_id">8a80854b8d346259018d3918f9b30044</string>
-    <!-- string name="vpon_id">8a80854b75ab2b0101761cfb398671c6</string -->
-    <string name="adaptive_banner_ad_unit_id">ca-app-pub-7774962919741171/7850562750</string>
     <string name="delete_record_title">提醒您</string>
-    <string name="delete_record_content">您確定要刪除此筆迴向紀錄?</string>
-    <string name="delete_record0">您確定要刪除錄製的念佛聲?</string>
-    <string name="delete_record1">您確定要刪除錄製的迴向聲?</string>
     <string name="confirm">確認</string>
     <string name="cancel">取消</string>
     <string name="i_know">了解</string>
@@ -59,9 +25,6 @@
     <string name="record_string_format">%d句功德文已迴向完成!</string>
     <string name="EmptyString" />
     <string name="calendar">日曆</string>
-    <string name="go_to_today">滑回今天</string>
-    <string name="play">播放</string>
-    <string name="todo">TODO</string>
     <string name="bless_word">輸入問候語</string>
     <string name="default_hope">祝您 平安喜樂</string>
     <string name="bless_apply">貼上</string>
@@ -69,16 +32,6 @@
     <string name="Share">儲存後分享</string>
     <string name="Close">關閉</string>
     <!-- -->
-    <string name="title_hello">貼上問候語即可製作成【問候圖】</string>
-    <string name="desc_hello_pic">按下喜愛的圖片可以製作【問候圖】</string>
-    <string name="desc_text_move">提示：問候語可在圖片上用手指移動到合適的位置</string>
-    <string name="hello_text">問候語</string>
-    <string name="my_photo">打開相簿</string>
-    <string name="set_color">選擇顏色</string>
-    <string name="set_size">調整大小</string>
-    <string name="news_resource">新聞分類</string>
-    <string name="stock_key">股票代碼或名稱</string>
-    <string name="stock_code">股票代碼</string>
     <string name="Search">搜尋</string>
     <string name="close">關閉</string>
     <string name="please_choose">請選擇項目</string>
@@ -93,5 +46,7 @@
     <string name="enter_program">進入播客</string>
     <string name="go_back">返回</string>
     <string name="delete">刪除</string>
+    <string name="loading">正在下載中</string>
+    <string name="play">播放</string>
 
 </resources>

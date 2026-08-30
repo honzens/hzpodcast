@@ -36,6 +36,10 @@ public class utility {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (global_params.m_code_last != null)
                     editor.putString("code_last", global_params.m_code_last);
+                if (global_params.m_program_url != null)
+                    editor.putString("program_url", global_params.m_program_url);
+                else
+                    editor.remove("program_url");
                 editor.apply();
             }
         } catch (Exception e) {
@@ -47,12 +51,13 @@ public class utility {
             SharedPreferences sharedPreferences = ctx.getSharedPreferences("count", MODE_PRIVATE);
             if (sharedPreferences != null) {
                 global_params.m_code_last = sharedPreferences.getString("code_last", null);
+                global_params.m_program_url = sharedPreferences.getString("program_url", null);
             }
         } catch (Exception e) {
             Log.e(TAG,e.toString());
         }
     }
-    public static void SetScreenAlwaysOn(@NonNull Context ctx, boolean bYes) {
+    static public void SetScreenAlwaysOn(@NonNull Context ctx, boolean bYes) {
         if (bYes)
             ((Activity)ctx).getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         else
