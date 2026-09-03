@@ -21,6 +21,16 @@
         app:layout_constraintBottom_toBottomOf="parent">
     </androidx.recyclerview.widget.RecyclerView>
 
+    <View
+        android:id="@+id/block_view"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/purple_500"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="48dp"
@@ -30,8 +40,8 @@
         android:src="@drawable/ic_to_left"
         android:background="@android:color/transparent"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/block_view"/>
 
     <TextView
         android:id="@+id/txtChannelName"
@@ -55,6 +65,7 @@
         android:layout_gravity="center"
         android:visibility="invisible"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/block_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/btn_back"/>
 
@@ -65,9 +76,9 @@
         android:scrollbars="vertical"
         android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_back"
+        app:layout_constraintStart_toEndOf="@id/block_view"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/playerContainer">
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -76,9 +87,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/recyclerView_programs"
+        app:layout_constraintStart_toEndOf="@id/block_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
         <include
             android:id="@+id/playerView"
             layout="@layout/view_player"/>

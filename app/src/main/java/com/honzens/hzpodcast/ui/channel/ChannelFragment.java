@@ -83,11 +83,13 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                     @Override
                     public void run() {
                         if (m_player != null) {
-                            if (m_player.isPlaying()) {
-                                utility.SetScreenAlwaysOn(requireActivity(),true);
-                            }
                             long position = m_player.getCurrentPosition();
                             long duration = m_player.getDuration();
+                            if (m_player.isPlaying()) {
+                                utility.SetScreenAlwaysOn(requireActivity(), position < duration);
+                            }
+                            else
+                                utility.SetScreenAlwaysOn(requireActivity(),false);
                             if (duration > 0) {
                                 int progress = (int)((position * 1000) / duration);
                                 binding.playerView.playerSeekBar.setProgress(progress);
@@ -227,6 +229,7 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
     private void switch_to_program() {
         binding.recyclerViewChannels.setVisibility(View.INVISIBLE);
         //
+        binding.blockView.setVisibility(View.VISIBLE);
         binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
         binding.btnBack.setVisibility(View.VISIBLE);
         binding.playerContainer.setVisibility(View.VISIBLE);
@@ -235,6 +238,7 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
     private void switch_to_favor() {
         binding.recyclerViewChannels.setVisibility(View.VISIBLE);
         //
+        binding.blockView.setVisibility(View.INVISIBLE);
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.recyclerViewPrograms.setVisibility(View.INVISIBLE);
         binding.btnBack.setVisibility(View.INVISIBLE);

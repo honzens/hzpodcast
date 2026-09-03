@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- 垃圾桶本體 -->
+    <path
+        android:fillColor="#F44336"
+        android:pathData="M12,14
+                          L36,14
+                          L34,41
+                          C34,43 33,44 31,44
+                          L17,44
+                          C15,44 14,43 14,41
+                          Z" />
+
+    <!-- 桶蓋 -->
+    <path
+        android:fillColor="#F44336"
+        android:pathData="M8,10
+                          L40,10
+                          C41.1,10 42,10.9 42,12
+                          L42,16
+                          L6,16
+                          L6,12
+                          C6,10.9 6.9,10 8,10
+                          Z" />
+
+    <!-- 把手 -->
+    <path
+        android:fillColor="#F44336"
+        android:pathData="M18,10
+                          L18,7
+                          C18,5.3 19.3,4 21,4
+                          L27,4
+                          C28.7,4 30,5.3 30,7
+                          L30,10
+                          L26,10
+                          L26,8
+                          L22,8
+                          L22,10
+                          Z" />
+
+    <!-- 桶身白色線條 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,20
+                          L21,20
+                          L21,39
+                          L18,39
+                          Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M27,20
+                          L30,20
+                          L30,39
+                          L27,39
+                          Z" />
+
+</vector>

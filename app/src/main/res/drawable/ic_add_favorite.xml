@@ -1,0 +1,48 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Star -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFC107"
+        android:strokeWidth="2.5"
+        android:strokeLineJoin="round"
+        android:pathData="M24,4
+            L29.9,17.1
+            L44,18.6
+            L33.4,27.9
+            L36.4,42
+            L24,34.5
+            L11.6,42
+            L14.6,27.9
+            L4,18.6
+            L18.1,17.1
+            Z" />
+
+    <!-- Plus circle -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M37,27
+            A9,9 0,1 0,37,45
+            A9,9 0,1 0,37,27" />
+
+    <!-- Plus -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M35.8,31
+            L38.2,31
+            L38.2,34.8
+            L42,34.8
+            L42,37.2
+            L38.2,37.2
+            L38.2,41
+            L35.8,41
+            L35.8,37.2
+            L32,37.2
+            L32,34.8
+            L35.8,34.8 Z" />
+
+</vector>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="@color/black">
+
+    <ImageButton
+        android:id="@+id/btn_remove_favor"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="0dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_remove_favorite"
+        android:contentDescription="@string/del_favor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_enter_program"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="0dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_to_right"
+        android:contentDescription="@string/enter_program"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/txtChannelName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#FEFEFE"
+        android:textStyle="bold"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/btn_remove_favor"
+        app:layout_constraintEnd_toStartOf="@id/btn_enter_program"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtArtistName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#BBBBBB"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/btn_remove_favor"
+        app:layout_constraintEnd_toStartOf="@id/btn_enter_program"
+        app:layout_constraintTop_toBottomOf="@id/txtChannelName" />
+
+    <TextView
+        android:id="@+id/txtFeedUrl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#999999"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/btn_remove_favor"
+        app:layout_constraintEnd_toStartOf="@id/btn_enter_program"
+        app:layout_constraintTop_toBottomOf="@id/txtArtistName"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
