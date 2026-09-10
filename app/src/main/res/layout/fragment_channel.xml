@@ -65,7 +65,6 @@
         android:layout_gravity="center"
         android:visibility="invisible"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/block_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/btn_back"/>
 

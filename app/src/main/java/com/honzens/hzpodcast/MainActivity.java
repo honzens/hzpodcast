@@ -124,11 +124,15 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupWithNavController(binding.navView, navController);
         }
         //ads
-        m_adView = binding.adView;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        m_adView.loadAd(adRequest);
-        //update version
-        updateVersion();
+        if (!BuildConfig.DEBUG) {
+            m_adView = binding.adView;
+            AdRequest adRequest = new AdRequest.Builder().build();
+            m_adView.loadAd(adRequest);
+            //update version
+            updateVersion();
+        }
+        else
+            binding.adView.setVisibility(View.GONE);
     }
      private void updateVersion() {
         AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
@@ -241,13 +245,6 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (id == R.id.menu_quit) {
             m_handler.post(this::finish);
-            return true;
-        }
-        else if (id == R.id.menu_feedback) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_feedback)));
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            }
             return true;
         }
         return super.onOptionsItemSelected(item);

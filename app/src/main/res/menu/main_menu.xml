@@ -10,13 +10,6 @@
         app:showAsAction="never"
         android:title="@string/menu_title_about"/>
     <item
-        android:id="@+id/menu_feedback"
-        android:enabled="true"
-        android:visible="true"
-        android:icon="@drawable/ic_quit_24dp"
-        app:showAsAction="never"
-        android:title="@string/menu_title_feedback"/>
-    <item
         android:id="@+id/menu_quit"
         android:enabled="true"
         android:visible="true"
