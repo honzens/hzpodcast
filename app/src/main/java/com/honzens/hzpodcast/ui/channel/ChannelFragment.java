@@ -42,11 +42,13 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
     private EpisodeAdapter m_program_adapter;
     private Handler m_handler_callback;
     private ExoPlayer m_player;
+    private boolean m_wait_for_program_parsing;
     private final Handler m_playerHandler = new Handler(Looper.getMainLooper());
     private Runnable m_playerProgressRunnable;
     private ChannelViewModel m_channelViewModel;
     public ChannelFragment() {
         super();
+        m_wait_for_program_parsing = false;
     }
     @Override
     public void onResume() {
@@ -165,8 +167,8 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                                 String url = (String) msg.obj;
                                 global_params.m_program_url=url;
                                 utility.hard_save_current_setting(ctx);
-                                switch_to_program();
                                 show_progress_bar();
+                                m_wait_for_program_parsing = true;
                                 m_channelViewModel.loadPrograms(url, ctx);
                                 break;
                             case 2:
@@ -184,8 +186,10 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
         m_channelViewModel.getFeeds().observe(
                 getViewLifecycleOwner(),
                 data_items -> {
-                    if (binding.progressBar.getVisibility() == View.VISIBLE) {
+                    if (m_wait_for_program_parsing) {
                         hide_progress_bar();
+                        switch_to_program();
+                        m_wait_for_program_parsing = false;
                     }
                     binding.txtChannelName.setText(m_channelViewModel.channel_name);
                     m_program_adapter.setData(data_items);
@@ -194,9 +198,9 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                     );
                 });
         if (global_params.m_program_url != null) {
-            m_channelViewModel.loadPrograms(global_params.m_program_url, ctx);
-            switch_to_program();
             show_progress_bar();
+            m_wait_for_program_parsing = true;
+            m_channelViewModel.loadPrograms(global_params.m_program_url, ctx);
         }
     }
 
@@ -219,33 +223,54 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
     }
     private void hide_progress_bar() {
         binding.progressBar.setVisibility(View.INVISIBLE);
-        binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
+        //binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
 
     }
     private void show_progress_bar() {
         binding.progressBar.setVisibility(View.VISIBLE);
-        binding.recyclerViewPrograms.setVisibility(View.INVISIBLE);
+        //binding.recyclerViewPrograms.setVisibility(View.INVISIBLE);
     }
     private void switch_to_program() {
         binding.recyclerViewChannels.setVisibility(View.INVISIBLE);
         //
-        binding.blockView.setVisibility(View.VISIBLE);
-        binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
+        showFromLeft(binding.recyclerViewPrograms);
+        //binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
         binding.btnBack.setVisibility(View.VISIBLE);
-        binding.playerContainer.setVisibility(View.VISIBLE);
+        showFromLeft(binding.playerContainer);
+        //binding.playerContainer.setVisibility(View.VISIBLE);
         binding.txtChannelName.setVisibility(View.VISIBLE);
     }
     private void switch_to_favor() {
         binding.recyclerViewChannels.setVisibility(View.VISIBLE);
         //
-        binding.blockView.setVisibility(View.INVISIBLE);
-        binding.progressBar.setVisibility(View.INVISIBLE);
-        binding.recyclerViewPrograms.setVisibility(View.INVISIBLE);
-        binding.btnBack.setVisibility(View.INVISIBLE);
         initPlayer();
-        binding.playerContainer.setVisibility(View.INVISIBLE);
+        binding.progressBar.setVisibility(View.INVISIBLE);
+        hideToLeft(binding.recyclerViewPrograms);
+        //binding.recyclerViewPrograms.setVisibility(View.INVISIBLE);
+        binding.btnBack.setVisibility(View.INVISIBLE);
+        hideToLeft(binding.playerContainer);
+        //binding.playerContainer.setVisibility(View.INVISIBLE);
         binding.txtChannelName.setVisibility(View.INVISIBLE);
         binding.txtChannelName.setText(getString(R.string.loading));
+    }
+    public void showFromLeft(View view) {
+        view.setVisibility(View.VISIBLE);
+        view.post(() -> {
+            view.setTranslationX(-view.getWidth());
+            view.animate()
+                    .translationX(0)
+                    .setDuration(300)
+                    .start();
+        });
+    }
+    public void hideToLeft(View view) {
+        view.animate()
+                .translationX(-view.getWidth())
+                .setDuration(300)
+                .withEndAction(() -> {
+                    view.setVisibility(View.INVISIBLE);
+                })
+                .start();
     }
     @Override
     public void onDestroyView() {
