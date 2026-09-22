@@ -34,12 +34,12 @@
         android:layout_height="wrap_content"
         android:visibility="visible"
         app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:adUnitId="ca-app-pub-7774962919741171/1238521431"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/nav_view" />
 <!-- 測試 app:adUnitId="ca-app-pub-3940256099942544/6300978111" -->
-<!-- 正式 app:adUnitId="ca-app-pub-7774962919741171/7850562750" -->
+<!-- 正式 app:adUnitId="ca-app-pub-7774962919741171/1238521431" -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
