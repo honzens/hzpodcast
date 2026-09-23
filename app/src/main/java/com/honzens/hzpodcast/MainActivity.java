@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         global_params.set_save_path(this);
         utility.hard_load_current_setting(this);
         FeedCache.loadFavorMap(this);
+        FeedCache.clear_all(this);
         //------------
         //google ads=====
         //MobileAds.setRequestConfiguration(

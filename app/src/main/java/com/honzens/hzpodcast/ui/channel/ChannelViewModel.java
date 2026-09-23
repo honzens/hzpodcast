@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 import com.honzens.hzpodcast.classes.Episode;
 import com.honzens.hzpodcast.classes.Programs;
 import com.honzens.hzpodcast.common.AtomParser;
+import com.honzens.hzpodcast.common.FeedCache;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,11 +32,11 @@ public class ChannelViewModel extends ViewModel {
     public String channel_name = "";
     public void loadPrograms(String url, Context ctx)
     {
-        //List<ProgramItem> items = FeedCache.load_news_cache(idx, context);
-        //if (!items.isEmpty()) {
-        //    m_feeds.postValue(items);
-        //    return;
-        //}
+        Programs progs = FeedCache.load_ep_cache(ctx, url);
+        if (progs!=null && progs.episodes!=null && !progs.episodes.isEmpty()) {
+            m_feeds.postValue(progs.episodes);
+            return;
+        }
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -50,11 +51,12 @@ public class ChannelViewModel extends ViewModel {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
-                    //String s = response.body().string();
                     Programs item = AtomParser.parsePodcast(response.body().byteStream());
                     channel_name = item.title;
                     m_feeds.postValue(item.episodes);
-                    //FeedCache.save_news_cache(idx, context, news_items);
+                    //save to cache
+                    FeedCache.save_ep_cache(ctx, url, item);
+                    //=============
                 } catch (Exception e) {
                     List<Episode> news_items = new ArrayList<>();
                     channel_name = "";

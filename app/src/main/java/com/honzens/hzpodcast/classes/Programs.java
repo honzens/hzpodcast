@@ -9,4 +9,10 @@ public class Programs {
     public String author;
     public String imageUrl;
     public List<Episode> episodes = new ArrayList<>();
+    public Programs() {
+        this.title = "";
+        this.description = "";
+        this.author = "";
+        this.imageUrl = "";
+    }
 }
