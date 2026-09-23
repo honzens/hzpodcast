@@ -93,18 +93,18 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
     
     // Navigation Components
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.8'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.9.8'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.10.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.10.1'
 
     // Google Play Services: Ads, Updates, and Location
-    implementation 'com.google.android.gms:play-services-ads:25.4.0'
+    implementation 'com.google.android.gms:play-services-ads:25.5.0'
     implementation 'com.google.android.play:app-update:2.1.0'
     implementation 'com.google.android.play:app-update-ktx:2.1.0'
     implementation 'com.google.android.gms:play-services-location:21.4.0'
 
     // Media3 / ExoPlayer
-    implementation "androidx.media3:media3-exoplayer:1.11.0"
-    implementation "androidx.media3:media3-ui:1.11.0"
+    implementation "androidx.media3:media3-exoplayer:1.11.1"
+    implementation "androidx.media3:media3-ui:1.11.1"
 
     // Glide: Image Loading and Caching
     /**
@@ -126,7 +126,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0'
 
     // Firebase: Crashlytics and Analytics using BoM (Bill of Materials)
-    implementation(platform('com.google.firebase:firebase-bom:34.18.0'))
+    implementation(platform('com.google.firebase:firebase-bom:34.19.0'))
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
 
