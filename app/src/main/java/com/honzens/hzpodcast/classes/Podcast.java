@@ -6,6 +6,7 @@ public class Podcast {
     public String feedUrl = "";
     public String artworkUrl = "";
     public String genre = "";
+    public String artworkUrl100 = "";
     public int trackCount;
     public long collectionId;
     //public boolean isFavorite = false;

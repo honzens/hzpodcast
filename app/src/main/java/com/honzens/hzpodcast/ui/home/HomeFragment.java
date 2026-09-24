@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +23,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -57,7 +60,7 @@ public class HomeFragment extends Fragment {
         Context ctx = requireContext();
         ((MainActivity) ctx).setActionBarText(getString(R.string.title_home));
         Button btnSearch = binding.searchButton;
-        RecyclerView recycler = binding.recyclerView;
+        //RecyclerView recycler = binding.recyclerView;
         if (m_homeViewModel == null)
             m_homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         if (m_handler_callback == null) {
@@ -66,10 +69,13 @@ public class HomeFragment extends Fragment {
                     switch (msg.what) {
                         case 1:
                             // 收到 message 1
+                            //加入最愛
                             FeedCache.saveFavorMap(requireContext());
                             break;
                         case 2:
                             // 收到 message 2
+                            //填入keyword
+                            binding.keywordEdit.setText((String)msg.obj);
                             break;
                     }
                 }
@@ -78,8 +84,14 @@ public class HomeFragment extends Fragment {
         PodcastAdapter adapter = new PodcastAdapter(ctx, m_handler_callback);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(ctx, DividerItemDecoration.VERTICAL));
-        recycler.setAdapter(adapter);
+        binding.recyclerView.setAdapter(adapter);
         //binding.recyclerView.setBackgroundColor(Color.BLACK);
+        //
+        KeywordAdapter adapter1 = new KeywordAdapter(ctx, m_handler_callback);
+        adapter1.setData(global_params.m_code_last);
+        binding.recycleKeyword.setLayoutManager(new LinearLayoutManager(ctx));
+        binding.recycleKeyword.addItemDecoration(new DividerItemDecoration(ctx, DividerItemDecoration.VERTICAL));
+        binding.recycleKeyword.setAdapter(adapter1);
         //
         m_homeViewModel.getFeeds().observe(
                 getViewLifecycleOwner(),
@@ -91,22 +103,39 @@ public class HomeFragment extends Fragment {
                             binding.recyclerView.scrollToPosition(0)
                     );
                 });
-        TextInputEditText stockEdit = binding.keywordEdit;
-        if (global_params.m_code_last != null)
-            stockEdit.setText(global_params.m_code_last);//
+        TextInputEditText keyEdit = binding.keywordEdit;
+        keyEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String code = charSequence.toString().trim();
+                if (code.isEmpty()) {
+                    binding.recycleKeyword.setVisibility(View.VISIBLE);
+                }
+                else {
+                    binding.recycleKeyword.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         MaterialButton searchButton = binding.searchButton;
         searchButton.setOnClickListener(v -> {
             String code = "";
-            if (stockEdit.getText() != null) {
-                code = stockEdit.getText()
+            if (keyEdit.getText() != null) {
+                code = keyEdit.getText()
                         .toString()
                         .trim();
             }
             if (!code.isEmpty()) {
                 global_params.m_code_last = code;
                 hard_save_current_setting(ctx);
-                hideKeyboard(stockEdit);
-                m_homeViewModel.searchPodcasts(code, 30, ctx);
+                hideKeyboard(keyEdit);
+                m_homeViewModel.searchPodcasts(code, "TW",1000, ctx);
             }
         });
     }

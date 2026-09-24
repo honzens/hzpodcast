@@ -10,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.honzens.hzpodcast.R;
 import com.honzens.hzpodcast.classes.FavorFeedItem;
 import com.honzens.hzpodcast.common.FeedCache;
@@ -50,6 +52,8 @@ public class FavorFeedAdapter extends RecyclerView.Adapter<FavorFeedAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FavorFeedItem item = list.get(position);
+        if (item.artworkUrl != null && !item.artworkUrl.isEmpty())
+            Glide.with(m_ctx).load(item.artworkUrl).into(holder.image);
         holder.txtName.setText(item.collectionName);
         holder.txtArtistName.setText(item.artistName);
         holder.txtFeedUrl.setText(item.feedUrl);
@@ -95,6 +99,7 @@ public class FavorFeedAdapter extends RecyclerView.Adapter<FavorFeedAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView image;
         TextView txtName;
         TextView txtArtistName;
         TextView txtFeedUrl;
@@ -102,7 +107,7 @@ public class FavorFeedAdapter extends RecyclerView.Adapter<FavorFeedAdapter.View
         ImageButton btnEnterProgram;
         ViewHolder(View itemView) {
             super(itemView);
-
+            image = itemView.findViewById(R.id.image);
             txtName = itemView.findViewById(R.id.txtChannelName);
             txtArtistName = itemView.findViewById(R.id.txtArtistName);
             txtFeedUrl = itemView.findViewById(R.id.txtFeedUrl);

@@ -32,13 +32,13 @@ public class HomeViewModel extends ViewModel {
     {
         return m_feeds;
     }
-    public void searchPodcasts(String sKey, int limit, Context context)
+    public void searchPodcasts(String sKey, String zone, int limit, Context context)
     {
         String urlString = API_URL
                 + "?term=" + Uri.encode(sKey)
                 + "&media=podcast"
                 + "&entity=podcast"
-                + "&country=TW"
+                + "&country=" +zone
                 + "&limit=" + Math.clamp(limit, 1, 200);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -68,6 +68,7 @@ public class HomeViewModel extends ViewModel {
                             p.genre = item.optString("primaryGenreName");
                             p.trackCount = item.optInt("trackCount");
                             p.collectionId = item.optLong("collectionId");
+                            p.artworkUrl100 = item.optString("artworkUrl100");
                             if (!p.feedUrl.isEmpty()) {
                                 news_items.add(p);
                             }

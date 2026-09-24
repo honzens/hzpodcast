@@ -73,12 +73,12 @@ public class FeedCache {
             e.printStackTrace();
         }
     }
-    public static void addFavor(String url, String channel_name, String author) {
+    public static void addFavor(String artworkurl, String url, String channel_name, String author) {
         if (FeedCache.m_favorMap == null)
             FeedCache.m_favorMap = new HashMap<>();
         if (FeedCache.m_favorMap.containsKey(url))
             return;
-        FeedCache.m_favorMap.put(url, new FavorFeedItem(channel_name, author, url));
+        FeedCache.m_favorMap.put(url, new FavorFeedItem(artworkurl, channel_name, author, url));
         update_favor_map = true;
     }
     public static void delFavor(String url) {

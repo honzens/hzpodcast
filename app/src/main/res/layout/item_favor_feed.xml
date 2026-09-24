@@ -19,6 +19,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="0dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toEndOf="@id/btn_remove_favor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <ImageButton
         android:id="@+id/btn_enter_program"
         android:layout_width="48dp"
@@ -39,7 +49,7 @@
         android:textColor="#FEFEFE"
         android:textStyle="bold"
         android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/btn_remove_favor"
+        app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintEnd_toStartOf="@id/btn_enter_program"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +60,7 @@
         android:textSize="20sp"
         android:textColor="#BBBBBB"
         android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/btn_remove_favor"
+        app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintEnd_toStartOf="@id/btn_enter_program"
         app:layout_constraintTop_toBottomOf="@id/txtChannelName" />
 
@@ -62,7 +72,7 @@
         android:textColor="#999999"
         android:layout_marginStart="8dp"
         android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/btn_remove_favor"
+        app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintEnd_toStartOf="@id/btn_enter_program"
         app:layout_constraintTop_toBottomOf="@id/txtArtistName"
         app:layout_constraintBottom_toBottomOf="parent" />

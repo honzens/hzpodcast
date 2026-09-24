@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.honzens.hzpodcast.R;
 import com.honzens.hzpodcast.classes.Podcast;
@@ -44,6 +46,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.VH> {
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
         Podcast p = data.get(position);
+        Glide.with(m_context).load(p.artworkUrl100).into(h.image);
         h.title.setText(p.collectionName);
         h.author.setText(p.artistName);
         h.feed.setText(p.feedUrl);
@@ -52,7 +55,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.VH> {
             h.btn_add_favor.setVisibility(View.VISIBLE);
             h.btn_add_favor.setOnClickListener(v -> {
                 // 加入最愛
-                FeedCache.addFavor(p.feedUrl, p.collectionName, p.artistName);
+                FeedCache.addFavor(p.artworkUrl100, p.feedUrl, p.collectionName, p.artistName);
                 h.btn_add_favor.setVisibility(View.GONE);
                 m_handler.sendEmptyMessage(1);
             });
@@ -66,9 +69,11 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.VH> {
 
     static class VH extends RecyclerView.ViewHolder {
         TextView title, author, feed;
+        ImageView image;
         ImageButton btn_add_favor;
         VH(@NonNull View v) {
             super(v);
+            image = v.findViewById(R.id.image);
             title = v.findViewById(R.id.title);
             author = v.findViewById(R.id.author);
             feed = v.findViewById(R.id.feed);

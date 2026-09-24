@@ -64,7 +64,15 @@ public class FavorFeedItem {
         this.feedUrl = url;
         this.add_time = new Date().getTime();
     }
+    public FavorFeedItem(String artworkUrl, String name, String author, String url) {
+        this.artworkUrl = artworkUrl;
+        this.collectionName = name;
+        this.artistName = author;
+        this.feedUrl = url;
+        this.add_time = new Date().getTime();
+    }
     public FavorFeedItem() {
+        this.artworkUrl = "";
         this.collectionName = "";
         this.artistName = "";
         this.feedUrl = "";
