@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.honzens.hzpodcast.MainActivity;
 import com.honzens.hzpodcast.R;
-import com.honzens.hzpodcast.common.FeedCache;
 import com.honzens.hzpodcast.common.utility;
 import com.honzens.hzpodcast.databinding.FragmentDownloadBinding;
+import com.honzens.hzpodcast.global_params;
 
 import java.io.File;
 import java.util.Locale;
@@ -40,6 +39,7 @@ public class DownloadFragment extends Fragment implements DownloadedMp3Adapter.L
     private TextView m_txtDuration;
     private SeekBar m_playerSeekBar;
     private Button m_btnPlayPause;
+    private Button m_btnSpeed;
     private Button m_btnBack15;
     private Button m_btnForward15;
     private final Handler m_download_handler =
@@ -114,6 +114,7 @@ public class DownloadFragment extends Fragment implements DownloadedMp3Adapter.L
         m_txtDuration = binding.playerView.txtDuration;
         m_playerSeekBar = binding.playerView.playerSeekBar;
         m_btnPlayPause = binding.playerView.btnPlayPause;
+        m_btnSpeed = binding.playerView.btnSpeed;
         m_btnBack15 = binding.playerView.btnBack15;
         m_btnForward15 =  binding.playerView.btnForward15;
         initPlayer();
@@ -137,6 +138,37 @@ public class DownloadFragment extends Fragment implements DownloadedMp3Adapter.L
     }
     private void initPlayer() {
         m_player = new ExoPlayer.Builder(requireContext()).build();
+        if (global_params.m_download_player_speed!=null && global_params.m_download_player_speed.length()>=4) {
+            float fspeed =Float.parseFloat(global_params.m_download_player_speed.substring(0,global_params.m_program_player_speed.length()-1));
+            m_player.setPlaybackSpeed(fspeed);
+        }
+        else {
+            global_params.m_download_player_speed = "1.0x";
+            m_player.setPlaybackSpeed(1.0f);
+            m_btnSpeed.setText(global_params.m_download_player_speed);
+        }
+        m_btnSpeed.setOnClickListener(v -> {
+            String vtxt = m_btnSpeed.getText().toString();
+            if (vtxt.startsWith("1.0")) {
+                global_params.m_download_player_speed = "1.5x";
+                m_player.setPlaybackSpeed(1.5f);
+            }
+            else if (vtxt.startsWith("1.5")) {
+                global_params.m_download_player_speed = "2.0x";
+                m_player.setPlaybackSpeed(2.0f);
+            }
+            else if (vtxt.startsWith("2.0")) {
+                global_params.m_download_player_speed = "0.5x";
+                m_player.setPlaybackSpeed(0.5f);
+            }
+            else {
+                global_params.m_download_player_speed = "1.0x";
+                m_player.setPlaybackSpeed(1.0f);
+            }
+            m_btnSpeed.setText(global_params.m_download_player_speed);
+            utility.hard_save_current_setting(requireActivity());
+
+        });
         m_btnPlayPause.setOnClickListener(v -> {
             if (m_player.isPlaying()) {
                 m_player.pause();

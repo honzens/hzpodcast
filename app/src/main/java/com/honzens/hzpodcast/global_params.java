@@ -9,6 +9,8 @@ public class global_params {
     //message defined
     public static String m_code_last = null;
     public static String m_program_url = null;
+    public static String m_program_player_speed = null;
+    public static String m_download_player_speed = null;
     public static void initialize() {
 
     }

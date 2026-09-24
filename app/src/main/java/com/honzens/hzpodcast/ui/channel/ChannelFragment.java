@@ -138,6 +138,37 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                 binding.playerView.btnPlayPause.setText("❚❚");
             }
         });
+        if (global_params.m_program_player_speed!=null && global_params.m_program_player_speed.length()>=4) {
+            binding.playerView.btnSpeed.setText(global_params.m_program_player_speed);
+            float fspeed =Float.parseFloat(global_params.m_program_player_speed.substring(0,global_params.m_program_player_speed.length()-1));
+            m_player.setPlaybackSpeed(fspeed);
+        }
+        else {
+            m_player.setPlaybackSpeed(1.0f);
+            global_params.m_program_player_speed = "1.0x";
+            binding.playerView.btnSpeed.setText(global_params.m_program_player_speed);
+        }
+        binding.playerView.btnSpeed.setOnClickListener(v -> {
+            String vtxt = binding.playerView.btnSpeed.getText().toString();
+            if (vtxt.startsWith("1.0")) {
+                 global_params.m_program_player_speed = "1.5x";
+                 m_player.setPlaybackSpeed(1.5f);
+            }
+            else if (vtxt.startsWith("1.5")) {
+                global_params.m_program_player_speed = "2.0x";
+                m_player.setPlaybackSpeed(2.0f);
+            }
+            else if (vtxt.startsWith("2.0")) {
+                global_params.m_program_player_speed = "0.5x";
+                m_player.setPlaybackSpeed(0.5f);
+            }
+            else {
+                global_params.m_program_player_speed = "1.0x";
+                m_player.setPlaybackSpeed(1.0f);
+            }
+            binding.playerView.btnSpeed.setText(global_params.m_program_player_speed);
+            utility.hard_save_current_setting(requireActivity());
+        });
         binding.playerView.btnBack15.setOnClickListener(v -> {
             if (m_player != null) {
                 long position = m_player.getCurrentPosition();

@@ -40,6 +40,15 @@ public class utility {
                     editor.putString("program_url", global_params.m_program_url);
                 else
                     editor.remove("program_url");
+                if (global_params.m_program_player_speed != null)
+                    editor.putString("program_player_speed", global_params.m_program_player_speed);
+                else
+                    editor.remove("program_player_speed");
+                if (global_params.m_download_player_speed != null)
+                    editor.putString("download_player_speed", global_params.m_download_player_speed);
+                else
+                    editor.remove("download_player_speed");
+
                 editor.apply();
             }
         } catch (Exception e) {
@@ -52,6 +61,8 @@ public class utility {
             if (sharedPreferences != null) {
                 global_params.m_code_last = sharedPreferences.getString("code_last", null);
                 global_params.m_program_url = sharedPreferences.getString("program_url", null);
+                global_params.m_program_player_speed = sharedPreferences.getString("program_player_speed", "1.0x");
+                global_params.m_download_player_speed = sharedPreferences.getString("download_player_speed", "1.0x");
             }
         } catch (Exception e) {
             Log.e(TAG,e.toString());
