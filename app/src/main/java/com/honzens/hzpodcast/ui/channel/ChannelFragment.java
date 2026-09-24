@@ -3,10 +3,12 @@ package com.honzens.hzpodcast.ui.channel;
 import static com.honzens.hzpodcast.common.utility.hard_save_current_setting;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import com.bumptech.glide.Glide;
 import com.honzens.hzpodcast.MainActivity;
 import com.honzens.hzpodcast.R;
 import com.honzens.hzpodcast.classes.Episode;
@@ -212,6 +214,18 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
             binding.recyclerViewChannels.setAdapter(m_favor_adapter);
             m_program_adapter = new EpisodeAdapter(ctx,this);
             binding.recyclerViewPrograms.setAdapter(m_program_adapter);
+            binding.btnChannelDetail.setOnClickListener(v -> {
+                if (binding.layoutDetail.getVisibility()==View.VISIBLE) {
+                    binding.layoutDetail.setVisibility(View.INVISIBLE);
+                    binding.btnChannelDetail.setImageResource(R.drawable.ic_arrow_down);
+                    binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
+                }
+                else {
+                    binding.layoutDetail.setVisibility(View.VISIBLE);
+                    binding.btnChannelDetail.setImageResource(R.drawable.ic_arrow_up);
+                    binding.recyclerViewPrograms.setVisibility(View.INVISIBLE);
+                }
+            });
         }
         //===========
         m_channelViewModel.getFeeds().observe(
@@ -223,6 +237,13 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                         m_wait_for_program_parsing = false;
                     }
                     binding.txtChannelName.setText(m_channelViewModel.channel_name);
+                    //
+                    if (m_channelViewModel.image_url != null && !m_channelViewModel.image_url.isEmpty())
+                        Glide.with(this)
+                            .load(m_channelViewModel.image_url)
+                            .into(binding.imgDetail);
+                    binding.webDetail.loadData(m_channelViewModel.description, "text/html", "UTF-8");
+                    //
                     m_program_adapter.setData(data_items);
                     binding.recyclerViewPrograms.post(() ->
                             binding.recyclerViewPrograms.scrollToPosition(0)
@@ -270,6 +291,11 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
         showFromLeft(binding.playerContainer);
         //binding.playerContainer.setVisibility(View.VISIBLE);
         binding.txtChannelName.setVisibility(View.VISIBLE);
+        //
+        binding.btnChannelDetail.setImageResource(R.drawable.ic_arrow_down);
+        binding.btnChannelDetail.setVisibility(View.VISIBLE);
+        binding.layoutDetail.setVisibility(View.INVISIBLE);
+        //
     }
     private void switch_to_favor() {
         binding.recyclerViewChannels.setVisibility(View.VISIBLE);
@@ -283,6 +309,8 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
         //binding.playerContainer.setVisibility(View.INVISIBLE);
         binding.txtChannelName.setVisibility(View.INVISIBLE);
         binding.txtChannelName.setText(getString(R.string.loading));
+        binding.btnChannelDetail.setVisibility(View.INVISIBLE);
+        binding.layoutDetail.setVisibility(View.INVISIBLE);
     }
     public void showFromLeft(View view) {
         view.setVisibility(View.VISIBLE);

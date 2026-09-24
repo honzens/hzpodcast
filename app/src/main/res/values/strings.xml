@@ -47,6 +47,7 @@
     <string name="go_back">返回</string>
     <string name="delete">刪除</string>
     <string name="loading">正在下載中</string>
+    <string name="detail">詳細說明</string>
     <string name="play">播放</string>
 
 </resources>

@@ -30,10 +30,18 @@ public class ChannelViewModel extends ViewModel {
         return m_feeds;
     }
     public String channel_name = "";
+    public String author = "";
+    public String description = "";
+    public String image_url = "";
+
     public void loadPrograms(String url, Context ctx)
     {
         Programs progs = FeedCache.load_ep_cache(ctx, url);
         if (progs!=null && progs.episodes!=null && !progs.episodes.isEmpty()) {
+            channel_name = progs.title;
+            author = progs.author;
+            description = progs.description;
+            image_url = progs.imageUrl;
             m_feeds.postValue(progs.episodes);
             return;
         }
@@ -45,7 +53,10 @@ public class ChannelViewModel extends ViewModel {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 List<Episode> news_items = new ArrayList<>();
-                channel_name = "";
+                channel_name = "下載失敗!";
+                author = "";
+                description = "";
+                image_url = "";
                 m_feeds.postValue(news_items);
             }
             @Override
@@ -53,13 +64,19 @@ public class ChannelViewModel extends ViewModel {
                 try {
                     Programs item = AtomParser.parsePodcast(response.body().byteStream());
                     channel_name = item.title;
+                    author = item.author;
+                    description = item.description;
+                    image_url = item.imageUrl;
                     m_feeds.postValue(item.episodes);
                     //save to cache
                     FeedCache.save_ep_cache(ctx, url, item);
                     //=============
                 } catch (Exception e) {
                     List<Episode> news_items = new ArrayList<>();
-                    channel_name = "";
+                    channel_name = "下載失敗!";
+                    author = "";
+                    description = "";
+                    image_url = "";
                     m_feeds.postValue(news_items);
                     e.printStackTrace();
                 }
