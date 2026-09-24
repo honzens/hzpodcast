@@ -18,8 +18,8 @@ android {
         applicationId "com.honzens.hzpodcast"
         minSdk 28
         targetSdk 37
-        versionCode 26092301
-        versionName '1.06'
+        versionCode 26092401
+        versionName '1.07'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

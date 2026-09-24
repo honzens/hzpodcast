@@ -33,6 +33,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -81,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
         //                .setTestDeviceIds(List.of("3038FCE8C4F733B35E48BC26D82608D6"))
         //                .build()
         //);
+        RequestConfiguration requestConfiguration = MobileAds.getRequestConfiguration()
+                        .toBuilder()
+                        .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_G)
+                        .build();
+        MobileAds.setRequestConfiguration(requestConfiguration);
         MobileAds.initialize(this, initializationStatus -> {});
         //================
         binding = ActivityMainBinding.inflate(getLayoutInflater());

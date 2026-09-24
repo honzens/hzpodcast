@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment {
                 data_items -> {
                     adapter.setData(data_items);
                     btnSearch.setEnabled(true);
+                    binding.progressBar.setVisibility(View.INVISIBLE);
                     binding.resultText.setText("找到 " + data_items.size() + " 個 Podcast");
                     binding.recyclerView.post(() ->
                             binding.recyclerView.scrollToPosition(0)
@@ -136,6 +137,7 @@ public class HomeFragment extends Fragment {
                 hard_save_current_setting(ctx);
                 hideKeyboard(keyEdit);
                 m_homeViewModel.searchPodcasts(code, "TW",1000, ctx);
+                binding.progressBar.setVisibility(View.VISIBLE);
             }
         });
     }
