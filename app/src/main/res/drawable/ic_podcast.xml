@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- 收音機外框 -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M8,14
+            L40,14
+            C42.2,14 44,15.8 44,18
+            L44,38
+            C44,40.2 42.2,42 40,42
+            L8,42
+            C5.8,42 4,40.2 4,38
+            L4,18
+            C4,15.8 5.8,14 8,14Z" />
+
+    <!-- 天線 -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M22,14
+            L26,14
+            L31,6
+            L28,4
+            Z" />
+
+    <!-- Podcast 麥克風 / 廣播中心 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,20
+            C20.7,20 18,22.7 18,26
+            L18,29
+            C18,32.3 20.7,35 24,35
+            C27.3,35 30,32.3 30,29
+            L30,26
+            C30,22.7 27.3,20 24,20Z
+            M21,26
+            C21,24.3 22.3,23 24,23
+            C25.7,23 27,24.3 27,26
+            L27,29
+            C27,30.7 25.7,32 24,32
+            C22.3,32 21,30.7 21,29Z" />
+
+    <!-- 麥克風底座 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M16,28
+            L16,29
+            C16,33.4 19.6,37 24,37
+            C28.4,37 32,33.4 32,29
+            L32,28
+            L29,28
+            L29,29
+            C29,31.8 26.8,34 24,34
+            C21.2,34 19,31.8 19,29
+            L19,28
+            Z
+            M22.5,36
+            L25.5,36
+            L25.5,39
+            L22.5,39
+            Z
+            M19,39
+            L29,39
+            L29,41
+            L19,41
+            Z" />
+
+    <!-- Podcast 左右聲波 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14,23
+            C12.7,24.4 12,26.1 12,28
+            C12,29.9 12.7,31.6 14,33
+            L16,31
+            C15.3,30.2 15,29.1 15,28
+            C15,26.9 15.3,25.8 16,25
+            Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34,23
+            L32,25
+            C32.7,25.8 33,26.9 33,28
+            C33,29.1 32.7,30.2 32,31
+            L34,33
+            C35.3,31.6 36,29.9 36,28
+            C36,26.1 35.3,24.4 34,23Z" />
+
+</vector>

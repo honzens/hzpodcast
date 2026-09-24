@@ -16,9 +16,11 @@ import com.honzens.hzpodcast.common.FeedCache;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -45,7 +47,14 @@ public class ChannelViewModel extends ViewModel {
             m_feeds.postValue(progs.episodes);
             return;
         }
-        OkHttpClient client = new OkHttpClient();
+        //OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true) // 允許連線失敗時自動重試
+                .connectionPool(new ConnectionPool(5, 5, TimeUnit.MINUTES))
+                .build();
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -58,6 +67,7 @@ public class ChannelViewModel extends ViewModel {
                 description = "";
                 image_url = "";
                 m_feeds.postValue(news_items);
+                e.printStackTrace();
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {

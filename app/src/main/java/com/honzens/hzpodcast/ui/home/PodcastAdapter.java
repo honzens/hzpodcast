@@ -46,7 +46,11 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.VH> {
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
         Podcast p = data.get(position);
-        Glide.with(m_context).load(p.artworkUrl100).into(h.image);
+        Glide.with(m_context)
+                .load(p.artworkUrl100)
+                .placeholder(R.drawable.ic_podcast)
+                .error(R.drawable.ic_podcast)
+                .into(h.image);
         h.title.setText(p.collectionName);
         h.author.setText(p.artistName);
         h.feed.setText(p.feedUrl);

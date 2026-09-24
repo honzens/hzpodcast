@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_back"
         app:layout_constraintEnd_toStartOf="@id/btn_channel_detail"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_back"/>
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -56,7 +56,7 @@
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_back"/>
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"/>
 
     <ImageButton
         android:id="@+id/btn_channel_detail"

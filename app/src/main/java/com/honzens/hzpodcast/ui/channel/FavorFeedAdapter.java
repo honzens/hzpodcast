@@ -53,7 +53,11 @@ public class FavorFeedAdapter extends RecyclerView.Adapter<FavorFeedAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FavorFeedItem item = list.get(position);
         if (item.artworkUrl != null && !item.artworkUrl.isEmpty())
-            Glide.with(m_ctx).load(item.artworkUrl).into(holder.image);
+            Glide.with(m_ctx)
+                    .load(item.artworkUrl)
+                    .placeholder(R.drawable.ic_podcast)
+                    .error(R.drawable.ic_podcast)
+                    .into(holder.image);
         holder.txtName.setText(item.collectionName);
         holder.txtArtistName.setText(item.artistName);
         holder.txtFeedUrl.setText(item.feedUrl);

@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
                     adapter.setData(data_items);
                     btnSearch.setEnabled(true);
                     binding.progressBar.setVisibility(View.INVISIBLE);
-                    binding.resultText.setText("找到 " + data_items.size() + " 個 Podcast");
+                    binding.resultText.setText("找到 " + data_items.size() + " 個播客");
                     binding.recyclerView.post(() ->
                             binding.recyclerView.scrollToPosition(0)
                     );

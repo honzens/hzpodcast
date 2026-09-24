@@ -240,9 +240,14 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                     //
                     if (m_channelViewModel.image_url != null && !m_channelViewModel.image_url.isEmpty())
                         Glide.with(this)
-                            .load(m_channelViewModel.image_url)
-                            .into(binding.imgDetail);
-                    binding.webDetail.loadData(m_channelViewModel.description, "text/html", "UTF-8");
+                                .load(m_channelViewModel.image_url)
+                                .placeholder(R.drawable.ic_podcast)
+                                .error(R.drawable.ic_podcast)
+                                .into(binding.imgDetail);
+                    if (m_channelViewModel.description != null && !m_channelViewModel.description.isEmpty())
+                        binding.webDetail.loadData(m_channelViewModel.description, "text/html", "UTF-8");
+                    else
+                        binding.btnChannelDetail.setVisibility(View.INVISIBLE);
                     //
                     m_program_adapter.setData(data_items);
                     binding.recyclerViewPrograms.post(() ->

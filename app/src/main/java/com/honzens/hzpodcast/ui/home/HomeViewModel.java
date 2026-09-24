@@ -18,9 +18,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.ConnectionPool;
+import okhttp3.Dns;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -28,6 +31,7 @@ import okhttp3.Response;
 public class HomeViewModel extends ViewModel {
     private final MutableLiveData<List<Podcast>> m_feeds = new MutableLiveData<>();
     private static final String API_URL = "https://itunes.apple.com/search";
+    //private static final String API_URL = "https://www.apple.com/tw/search";
     public LiveData<List<Podcast>> getFeeds()
     {
         return m_feeds;
@@ -38,9 +42,17 @@ public class HomeViewModel extends ViewModel {
                 + "?term=" + Uri.encode(sKey)
                 + "&media=podcast"
                 + "&entity=podcast"
-                + "&country=" +zone
-                + "&limit=" + Math.clamp(limit, 1, 200);
-        OkHttpClient client = new OkHttpClient();
+                + "&country=" + zone
+                + "&limit=" + Math.clamp(limit, 1, 50);
+        //OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true) // 允許連線失敗時自動重試
+                .connectionPool(new ConnectionPool(5, 5, TimeUnit.MINUTES))
+                .build();
+
         Request request = new Request.Builder()
                 .url(urlString)
                 .get()
@@ -49,8 +61,8 @@ public class HomeViewModel extends ViewModel {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, IOException e) {
-                List<Podcast> news_items = new ArrayList<>();
-                m_feeds.postValue(news_items);
+                m_feeds.postValue(new ArrayList<>());
+                e.printStackTrace();
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {

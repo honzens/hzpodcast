@@ -30,7 +30,6 @@ public class KeywordAdapter extends RecyclerView.Adapter<KeywordAdapter.VH> {
     }
     public void setData(String kw_last) {
         data.clear();
-        data.add("音樂");
         data.add("歷史");
         data.add("學英文");
         data.add("陶子");
@@ -40,7 +39,6 @@ public class KeywordAdapter extends RecyclerView.Adapter<KeywordAdapter.VH> {
         data.add("天下雜誌");
         data.add("輕音樂");
         data.add("科學");
-        data.add("八卦");
         if (kw_last != null && !kw_last.isEmpty()) {
             boolean bFind = false;
             for (String kw : data) {
