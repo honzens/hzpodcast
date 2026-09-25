@@ -30,7 +30,7 @@ public class KeywordAdapter extends RecyclerView.Adapter<KeywordAdapter.VH> {
         data.add("學英文");
         data.add("陶子");
         data.add("下班");
-        data.add("X檔案");
+        data.add("X調查");
         data.add("腦洞烏托邦");
         data.add("天下雜誌");
         data.add("輕音樂");

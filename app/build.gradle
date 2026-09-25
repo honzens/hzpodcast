@@ -18,8 +18,8 @@ android {
         applicationId "com.honzens.hzpodcast"
         minSdk 28
         targetSdk 37
-        versionCode 26092401
-        versionName '1.07'
+        versionCode 26092501
+        versionName '1.08'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -93,8 +93,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
     
     // Navigation Components
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.10.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.10.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.10.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.10.2'
 
     // Google Play Services: Ads, Updates, and Location
     implementation 'com.google.android.gms:play-services-ads:25.5.0'

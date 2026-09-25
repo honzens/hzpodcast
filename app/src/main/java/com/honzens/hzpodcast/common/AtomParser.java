@@ -66,8 +66,8 @@ public class AtomParser {
                     }
                 }
             } else if (eventType == XmlPullParser.END_TAG) {
-                if ("item".equals(parser.getName())
-                        && episode != null) {
+                if ("item".equals(parser.getName()) && episode != null && episode.audioUrl!= null && !episode.audioUrl.isEmpty())
+                {
                     podcast.episodes.add(episode);
                     episode = null;
                 }

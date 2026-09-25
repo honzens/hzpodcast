@@ -81,7 +81,7 @@ public class HomeViewModel extends ViewModel {
                             p.trackCount = item.optInt("trackCount");
                             p.collectionId = item.optLong("collectionId");
                             p.artworkUrl100 = item.optString("artworkUrl100");
-                            if (!p.feedUrl.isEmpty()) {
+                            if (!p.feedUrl.isEmpty() && !p.collectionName.isEmpty()) {
                                 news_items.add(p);
                             }
                         }
