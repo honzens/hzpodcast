@@ -216,14 +216,16 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
             binding.recyclerViewPrograms.setAdapter(m_program_adapter);
             binding.btnChannelDetail.setOnClickListener(v -> {
                 if (binding.layoutDetail.getVisibility()==View.VISIBLE) {
-                    binding.layoutDetail.setVisibility(View.INVISIBLE);
+                    //binding.layoutDetail.setVisibility(View.INVISIBLE);
                     binding.btnChannelDetail.setImageResource(R.drawable.ic_arrow_down);
-                    binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
+                    hideToTop(binding.layoutDetail, binding.recyclerViewPrograms);
+                    //binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
                 }
                 else {
-                    binding.layoutDetail.setVisibility(View.VISIBLE);
+                    //binding.layoutDetail.setVisibility(View.VISIBLE);
                     binding.btnChannelDetail.setImageResource(R.drawable.ic_arrow_up);
-                    binding.recyclerViewPrograms.setVisibility(View.INVISIBLE);
+                    showFromTop(binding.layoutDetail, binding.recyclerViewPrograms);
+                    //binding.recyclerViewPrograms.setVisibility(View.INVISIBLE);
                 }
             });
         }
@@ -293,12 +295,15 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
         showFromLeft(binding.recyclerViewPrograms);
         //binding.recyclerViewPrograms.setVisibility(View.VISIBLE);
         binding.btnBack.setVisibility(View.VISIBLE);
+        binding.btnBack.bringToFront();
         showFromLeft(binding.playerContainer);
         //binding.playerContainer.setVisibility(View.VISIBLE);
         binding.txtChannelName.setVisibility(View.VISIBLE);
+        binding.txtChannelName.bringToFront();
         //
         binding.btnChannelDetail.setImageResource(R.drawable.ic_arrow_down);
         binding.btnChannelDetail.setVisibility(View.VISIBLE);
+        binding.btnChannelDetail.bringToFront();
         binding.layoutDetail.setVisibility(View.INVISIBLE);
         //
     }
@@ -317,10 +322,31 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
         binding.btnChannelDetail.setVisibility(View.INVISIBLE);
         binding.layoutDetail.setVisibility(View.INVISIBLE);
     }
+    public void showFromTop(View view, View view2) {
+        view2.setVisibility(View.INVISIBLE);
+        view.post(() -> {
+            view.setTranslationY(-view.getHeight());
+            view.setVisibility(View.VISIBLE);
+            view.animate()
+                    .translationY(0)
+                    .setDuration(300)
+                    .start();
+        });
+    }
+    public void hideToTop(View view, View view2) {
+        view.animate()
+                .translationY(-view.getHeight())
+                .setDuration(300)
+                .withEndAction(() -> {
+                    view.setVisibility(View.INVISIBLE);
+                    view2.setVisibility(View.VISIBLE);
+                })
+                .start();
+    }
     public void showFromLeft(View view) {
-        view.setVisibility(View.VISIBLE);
         view.post(() -> {
             view.setTranslationX(-view.getWidth());
+            view.setVisibility(View.VISIBLE);
             view.animate()
                     .translationX(0)
                     .setDuration(300)

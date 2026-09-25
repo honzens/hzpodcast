@@ -1,21 +1,17 @@
 package com.honzens.hzpodcast.ui.home;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.honzens.hzpodcast.R;
-import com.honzens.hzpodcast.classes.Podcast;
-import com.honzens.hzpodcast.common.FeedCache;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +30,12 @@ public class KeywordAdapter extends RecyclerView.Adapter<KeywordAdapter.VH> {
         data.add("學英文");
         data.add("陶子");
         data.add("下班");
-        data.add("懸案");
-        data.add("腦洞");
+        data.add("X檔案");
+        data.add("腦洞烏托邦");
         data.add("天下雜誌");
         data.add("輕音樂");
-        data.add("科學");
+        data.add("劉軒");
+        data.add("谷阿莫");
         if (kw_last != null && !kw_last.isEmpty()) {
             boolean bFind = false;
             for (String kw : data) {
