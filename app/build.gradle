@@ -69,7 +69,7 @@ android {
     }
 
     // Include legacy Apache HTTP library if required by older dependencies
-    useLibrary 'org.apache.http.legacy'
+    //useLibrary 'org.apache.http.legacy'
     buildToolsVersion '37.0.0'
 
     // Include dependency metadata in the build artifacts

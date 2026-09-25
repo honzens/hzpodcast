@@ -49,9 +49,9 @@ public class ChannelViewModel extends ViewModel {
         }
         //OkHttpClient client = new OkHttpClient();
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true) // 允許連線失敗時自動重試
                 .connectionPool(new ConnectionPool(5, 5, TimeUnit.MINUTES))
                 .build();
