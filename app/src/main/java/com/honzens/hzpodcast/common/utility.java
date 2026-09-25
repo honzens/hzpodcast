@@ -48,7 +48,10 @@ public class utility {
                     editor.putString("download_player_speed", global_params.m_download_player_speed);
                 else
                     editor.remove("download_player_speed");
-
+                if (global_params.m_country != null)
+                    editor.putString("country", global_params.m_country);
+                else
+                    editor.remove("country");
                 editor.apply();
             }
         } catch (Exception e) {
@@ -63,6 +66,7 @@ public class utility {
                 global_params.m_program_url = sharedPreferences.getString("program_url", null);
                 global_params.m_program_player_speed = sharedPreferences.getString("program_player_speed", "1.0x");
                 global_params.m_download_player_speed = sharedPreferences.getString("download_player_speed", "1.0x");
+                global_params.m_country = sharedPreferences.getString("country", "TW");
             }
         } catch (Exception e) {
             Log.e(TAG,e.toString());

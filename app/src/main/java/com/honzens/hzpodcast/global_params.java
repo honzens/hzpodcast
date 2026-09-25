@@ -11,6 +11,7 @@ public class global_params {
     public static String m_program_url = null;
     public static String m_program_player_speed = null;
     public static String m_download_player_speed = null;
+    public static String m_country = null;
     public static void initialize() {
 
     }

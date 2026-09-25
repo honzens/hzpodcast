@@ -39,12 +39,14 @@ public class HomeViewModel extends ViewModel {
     public String Err;
     public void searchPodcasts(String sKey, String zone, int limit, Context context)
     {
+        if (zone == null)
+            zone = "TW";
         String urlString = API_URL
                 + "?term=" + Uri.encode(sKey)
                 + "&media=podcast"
                 + "&entity=podcast"
                 + "&country=" + zone
-                + "&limit=" + Math.clamp(limit, 1, 50);
+                + "&limit=" + Math.clamp(limit, 1, 100);
         //OkHttpClient client = new OkHttpClient();
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)

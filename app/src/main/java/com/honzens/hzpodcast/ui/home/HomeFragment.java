@@ -137,7 +137,7 @@ public class HomeFragment extends Fragment {
                 global_params.m_code_last = code;
                 hard_save_current_setting(ctx);
                 hideKeyboard(keyEdit);
-                m_homeViewModel.searchPodcasts(code, "TW",1000, ctx);
+                m_homeViewModel.searchPodcasts(code, global_params.m_country,500, ctx);
                 binding.progressBar.setVisibility(View.VISIBLE);
             }
         });
