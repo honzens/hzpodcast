@@ -97,7 +97,10 @@ public class HomeFragment extends Fragment {
                     adapter.setData(data_items);
                     btnSearch.setEnabled(true);
                     binding.progressBar.setVisibility(View.INVISIBLE);
-                    binding.resultText.setText("找到 " + data_items.size() + " 個播客");
+                    if (m_homeViewModel.Err == null)
+                        binding.resultText.setText("找到 " + data_items.size() + " 個播客");
+                    else
+                        binding.resultText.setText(m_homeViewModel.Err);
                     binding.recyclerView.post(() ->
                             binding.recyclerView.scrollToPosition(0)
                     );

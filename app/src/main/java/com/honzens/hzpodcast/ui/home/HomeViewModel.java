@@ -36,6 +36,7 @@ public class HomeViewModel extends ViewModel {
     {
         return m_feeds;
     }
+    public String Err;
     public void searchPodcasts(String sKey, String zone, int limit, Context context)
     {
         String urlString = API_URL
@@ -61,11 +62,13 @@ public class HomeViewModel extends ViewModel {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, IOException e) {
+                Err = "e.getMessage()";
                 m_feeds.postValue(new ArrayList<>());
                 e.printStackTrace();
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
+                Err = null;
                 List<Podcast> news_items = new ArrayList<>();
                 try {
                     JSONArray array = new JSONObject(response.body().string()).optJSONArray("results");

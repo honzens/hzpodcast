@@ -61,12 +61,11 @@ public class ChannelViewModel extends ViewModel {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                List<Episode> news_items = new ArrayList<>();
                 channel_name = "下載失敗!";
                 author = "";
                 description = "";
                 image_url = "";
-                m_feeds.postValue(news_items);
+                m_feeds.postValue(new ArrayList<>());
                 e.printStackTrace();
             }
             @Override
@@ -82,12 +81,11 @@ public class ChannelViewModel extends ViewModel {
                     FeedCache.save_ep_cache(ctx, url, item);
                     //=============
                 } catch (Exception e) {
-                    List<Episode> news_items = new ArrayList<>();
-                    channel_name = "下載失敗!";
+                    channel_name = "解析內容失敗!";
                     author = "";
                     description = "";
                     image_url = "";
-                    m_feeds.postValue(news_items);
+                    m_feeds.postValue(new ArrayList<>());
                     e.printStackTrace();
                 }
             }
