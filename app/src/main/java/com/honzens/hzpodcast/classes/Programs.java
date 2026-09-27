@@ -9,10 +9,12 @@ public class Programs {
     public String author;
     public String imageUrl;
     public List<Episode> episodes = new ArrayList<>();
+    public long time;
     public Programs() {
         this.title = "";
         this.description = "";
         this.author = "";
         this.imageUrl = "";
+        this.time = System.currentTimeMillis()/1000;
     }
 }

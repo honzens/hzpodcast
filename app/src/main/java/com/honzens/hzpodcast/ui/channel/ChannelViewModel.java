@@ -2,6 +2,7 @@ package com.honzens.hzpodcast.ui.channel;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -16,6 +17,8 @@ import com.honzens.hzpodcast.common.FeedCache;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -35,19 +38,34 @@ public class ChannelViewModel extends ViewModel {
     public String author = "";
     public String description = "";
     public String image_url = "";
-
+    public long catch_time;
+    public String feed_url = "";
     public void loadPrograms(String url, Context ctx)
     {
-        Programs progs = FeedCache.load_ep_cache(ctx, url);
+        Log.d("ChannelViewModel",String.format(Locale.US, "ask_url=%s", url));
+        if (!feed_url.equals(url)) {
+            //clear content
+            channel_name = "";
+            author = "";
+            description = "";
+            image_url = "";
+            feed_url = url;
+            catch_time = 0;
+        }
+        Programs progs = FeedCache.load_ep_cache(ctx, url);//取自快取
         if (progs!=null && progs.episodes!=null && !progs.episodes.isEmpty()) {
             channel_name = progs.title;
             author = progs.author;
             description = progs.description;
             image_url = progs.imageUrl;
-            m_feeds.postValue(progs.episodes);
-            return;
+            catch_time = progs.time;
+            m_feeds.postValue(progs.episodes);//先更新一次
         }
-        //OkHttpClient client = new OkHttpClient();
+        Log.d("ChannelViewModel",String.format(Locale.US, "diff_time=%d", (System.currentTimeMillis()/1000 - catch_time)));
+        if ((System.currentTimeMillis()/1000 - catch_time) < 60*60)
+            return;//快取內容很新
+        //快取內容舊了，重新抓
+        Log.d("ChannelViewModel",String.format(Locale.US, "load=%s", url));
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
@@ -65,6 +83,7 @@ public class ChannelViewModel extends ViewModel {
                 author = "";
                 description = "";
                 image_url = "";
+                catch_time = System.currentTimeMillis()/1000-55*60;
                 m_feeds.postValue(new ArrayList<>());
                 e.printStackTrace();
             }
@@ -72,11 +91,18 @@ public class ChannelViewModel extends ViewModel {
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
                     Programs item = AtomParser.parsePodcast(response.body().byteStream());
-                    channel_name = item.title;
-                    author = item.author;
-                    description = item.description;
-                    image_url = item.imageUrl;
-                    m_feeds.postValue(item.episodes);
+                    catch_time = item.time;
+                    if (!channel_name.equals(item.title) ||
+                            !author.equals(item.author) ||
+                            !description.equals(item.description) ||
+                            !image_url.equals(item.imageUrl) ||
+                            Objects.requireNonNull(m_feeds.getValue()).size() != item.episodes.size()) {
+                        channel_name = item.title;
+                        author = item.author;
+                        description = item.description;
+                        image_url = item.imageUrl;
+                        m_feeds.postValue(item.episodes);
+                    }
                     //save to cache
                     FeedCache.save_ep_cache(ctx, url, item);
                     //=============
@@ -85,6 +111,7 @@ public class ChannelViewModel extends ViewModel {
                     author = "";
                     description = "";
                     image_url = "";
+                    catch_time = System.currentTimeMillis()/1000-55*60;
                     m_feeds.postValue(new ArrayList<>());
                     e.printStackTrace();
                 }

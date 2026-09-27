@@ -114,8 +114,7 @@ public class FeedCache {
     }
     private static String getEpCacheName(String url) {
         Calendar cal = Calendar.getInstance();
-        return String.format(Locale.getDefault(), "%s_%d%02d%02d%02d.json", getSha256(url),
-                cal.get(Calendar.YEAR)-2020, cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.HOUR_OF_DAY));
+        return String.format(Locale.getDefault(), "%s.json", getSha256(url));
     }
     public static void clear_all(Context context) {
         try {
@@ -127,7 +126,7 @@ public class FeedCache {
                     if (file.getName().startsWith("favor_lst"))
                         continue;
                     long time = file.lastModified();
-                    if (new Date().getTime() - time > 1000 * 60 * 60 * 24)
+                    if (new Date().getTime() - time > 1000 * 60 * 60 * 24 * 15)
                         file.delete();
                 }
             }

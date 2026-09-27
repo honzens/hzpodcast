@@ -44,13 +44,11 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
     private EpisodeAdapter m_program_adapter;
     private Handler m_handler_callback;
     private ExoPlayer m_player;
-    private boolean m_wait_for_program_parsing;
     private final Handler m_playerHandler = new Handler(Looper.getMainLooper());
     private Runnable m_playerProgressRunnable;
     private ChannelViewModel m_channelViewModel;
     public ChannelFragment() {
         super();
-        m_wait_for_program_parsing = false;
     }
     @Override
     public void onResume() {
@@ -201,7 +199,6 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                                 global_params.m_program_url=url;
                                 utility.hard_save_current_setting(ctx);
                                 show_progress_bar();
-                                m_wait_for_program_parsing = true;
                                 m_channelViewModel.loadPrograms(url, ctx);
                                 break;
                             case 2:
@@ -233,10 +230,9 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
         m_channelViewModel.getFeeds().observe(
                 getViewLifecycleOwner(),
                 data_items -> {
-                    if (m_wait_for_program_parsing) {
+                    if (binding.progressBar.getVisibility() != View.INVISIBLE) {
                         hide_progress_bar();
                         switch_to_program();
-                        m_wait_for_program_parsing = false;
                     }
                     binding.txtChannelName.setText(m_channelViewModel.channel_name);
                     //
@@ -256,9 +252,8 @@ public class ChannelFragment extends Fragment implements EpisodeAdapter.Listener
                             binding.recyclerViewPrograms.scrollToPosition(0)
                     );
                 });
-        if (global_params.m_program_url != null) {
+        if (global_params.m_program_url != null && !global_params.m_program_url.isEmpty()) {
             show_progress_bar();
-            m_wait_for_program_parsing = true;
             m_channelViewModel.loadPrograms(global_params.m_program_url, ctx);
         }
     }
