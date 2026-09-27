@@ -58,8 +58,76 @@ public class MainActivity extends AppCompatActivity {
     public ActivityMainBinding binding;
     private Handler m_handler;
     private AdView m_adView;
+    int m_selectedCountryIndex;
     public static FirebaseAnalytics mFirebaseAnalytics;
-
+    private void showCountryDialog() {
+        String[] countryNames = {
+                "台灣",
+                "美國",
+                "日本",
+                "韓國",
+                "香港",
+                "新加坡",
+                "馬來西亞",
+                "中國",
+                "汶萊",
+                "英國",
+                "加拿大",
+                "澳洲",
+                "德國",
+                "法國",
+                "義大利",
+                "西班牙",
+                "荷蘭",
+                "瑞典",
+                "印度",
+                "巴西",
+                "墨西哥"
+        };
+        String[] countryCodes = {
+                "tw",
+                "us",
+                "jp",
+                "kr",
+                "hk",
+                "sg",
+                "my",
+                "cn",
+                "bn",
+                "gb",
+                "ca",
+                "au",
+                "de",
+                "fr",
+                "it",
+                "es",
+                "nl",
+                "se",
+                "in",
+                "br",
+                "mx"
+        };
+        m_selectedCountryIndex = 0;
+        for (int i = 0; i < countryNames.length; i++) {
+          if (countryCodes[i].equals(global_params.m_country.toLowerCase())) {
+            m_selectedCountryIndex = i;
+            break;
+          };
+        };
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("選擇 Podcast 國家")
+                .setSingleChoiceItems(
+                        countryNames,
+                        m_selectedCountryIndex,
+                        (dialogInterface, which) -> {
+                            m_selectedCountryIndex = which;
+                            global_params.m_country = countryCodes[which];
+                            dialogInterface.dismiss();
+                        })
+                .setNegativeButton("取消", null)
+                .create();
+        dialog.show();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,6 +316,10 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                     })
                     .show();
+            return true;
+        }
+        else if (id == R.id.menu_region) {
+            showCountryDialog();
             return true;
         }
         else if (id == R.id.menu_quit) {

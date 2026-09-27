@@ -3,29 +3,13 @@ package com.honzens.hzpodcast.common;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Activity;
-//import android.app.NotificationChannel;
-//import android.app.NotificationManager;
-//import android.app.PendingIntent;
-import android.app.Dialog;
 import android.content.Context;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.app.AlertDialog;
-import com.honzens.hzpodcast.R;
 import com.honzens.hzpodcast.global_params;
-import java.util.Calendar;
-import java.util.Locale;
 
 public class utility {
     private final static String TAG = "Utility";
@@ -66,7 +50,7 @@ public class utility {
                 global_params.m_program_url = sharedPreferences.getString("program_url", null);
                 global_params.m_program_player_speed = sharedPreferences.getString("program_player_speed", "1.0x");
                 global_params.m_download_player_speed = sharedPreferences.getString("download_player_speed", "1.0x");
-                global_params.m_country = sharedPreferences.getString("country", "TW");
+                global_params.m_country = sharedPreferences.getString("country", "tw");
             }
         } catch (Exception e) {
             Log.e(TAG,e.toString());

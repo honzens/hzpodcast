@@ -10,7 +10,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.honzens.hzpodcast.classes.Podcast;
-import com.honzens.hzpodcast.common.FeedCache;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.ConnectionPool;
-import okhttp3.Dns;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -37,15 +35,15 @@ public class HomeViewModel extends ViewModel {
         return m_feeds;
     }
     public String Err;
-    public void searchPodcasts(String sKey, String zone, int limit, Context context)
+    public void searchPodcasts(String sKey, String region, int limit, Context context)
     {
-        if (zone == null)
-            zone = "TW";
+        if (region == null)
+            region = "TW";
         String urlString = API_URL
                 + "?term=" + Uri.encode(sKey)
                 + "&media=podcast"
                 + "&entity=podcast"
-                + "&country=" + zone
+                + "&country=" + region
                 + "&limit=" + Math.clamp(limit, 1, 100);
         //OkHttpClient client = new OkHttpClient();
         OkHttpClient client = new OkHttpClient.Builder()
@@ -63,8 +61,8 @@ public class HomeViewModel extends ViewModel {
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(@NonNull Call call, IOException e) {
-                Err = "e.getMessage()";
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Err = e.getMessage();
                 m_feeds.postValue(new ArrayList<>());
                 e.printStackTrace();
             }

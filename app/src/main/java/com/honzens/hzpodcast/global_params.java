@@ -3,8 +3,6 @@ package com.honzens.hzpodcast;
 import android.content.Context;
 import android.util.Log;
 
-import com.honzens.hzpodcast.common.utility;
-
 public class global_params {
     //message defined
     public static String m_code_last = null;

@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">播客收音機</string>
     <string name="menu_title_about">關於</string>
-    <string name="menu_title_feedback">意見回饋</string>
+    <string name="menu_title_region">國家/區域</string>
     <string name="url_feedback">https://docs.google.com/forms/d/e/1FAIpQLSdXOPbtDMCKtrXTGbJUpiydeMvTjUgM_SA3O1JQN6Zq_zeThg/viewform?usp=sf_link</string>
     <string name="menu_title_quit">關閉程式</string>
+
     <string name="title_home">尋找播客</string>
     <string name="title_channel">最愛播客</string>
     <string name="title_download">下載音檔</string>
