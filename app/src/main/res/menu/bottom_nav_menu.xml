@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_download_24dp"
         android:title="@string/title_download"/>
 
+    <item
+        android:id="@+id/navigation_radio"
+        android:icon="@drawable/ic_radio_24dp"
+        android:title="@string/title_radio"/>
+
 </menu>
