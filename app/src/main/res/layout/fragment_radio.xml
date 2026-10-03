@@ -4,10 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?android:attr/colorBackground">
-
-    <!-- 目前播放的電台 -->
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_station"
@@ -36,32 +33,49 @@
         app:layout_constraintStart_toStartOf="@id/tv_station"
         app:layout_constraintTop_toBottomOf="@id/tv_station" />
 
-    <!-- 播放按鈕 -->
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="尚未播放"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_frequency" />
 
     <ImageButton
         android:id="@+id/btn_play"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="播放"
         android:src="@android:drawable/ic_media_play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_frequency" />
+        app:layout_constraintTop_toBottomOf="@id/tv_status" />
 
-    <!-- 電台清單 -->
+    <Button
+        android:id="@+id/btn_reconnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="重新連線"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_play" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_radio"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_play" />
+        app:layout_constraintTop_toBottomOf="@id/btn_reconnect" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
