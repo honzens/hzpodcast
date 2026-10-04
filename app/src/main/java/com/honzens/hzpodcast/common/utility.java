@@ -36,6 +36,22 @@ public class utility {
                     editor.putString("country", global_params.m_country);
                 else
                     editor.remove("country");
+                if (global_params.m_live_name != null)
+                    editor.putString("live_name", global_params.m_live_name);
+                else
+                    editor.remove("live_name");
+                if (global_params.m_live_region != null)
+                    editor.putString("live_region", global_params.m_live_region);
+                else
+                    editor.remove("live_region");
+                if (global_params.m_live_language != null)
+                    editor.putString("live_language", global_params.m_live_language);
+                else
+                    editor.remove("live_language");
+                if (global_params.getM_live_url != null)
+                    editor.putString("live_url", global_params.getM_live_url);
+                else
+                    editor.remove("live_url");
                 editor.apply();
             }
         } catch (Exception e) {
@@ -51,6 +67,10 @@ public class utility {
                 global_params.m_program_player_speed = sharedPreferences.getString("program_player_speed", "1.0x");
                 global_params.m_download_player_speed = sharedPreferences.getString("download_player_speed", "1.0x");
                 global_params.m_country = sharedPreferences.getString("country", "tw");
+                global_params.m_live_name = sharedPreferences.getString("live_name", null);
+                global_params.m_live_region = sharedPreferences.getString("live_region", null);
+                global_params.m_live_language = sharedPreferences.getString("live_language", null);
+                global_params.getM_live_url = sharedPreferences.getString("live_url", null);
             }
         } catch (Exception e) {
             Log.e(TAG,e.toString());

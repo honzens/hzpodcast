@@ -10,6 +10,10 @@ public class global_params {
     public static String m_program_player_speed = null;
     public static String m_download_player_speed = null;
     public static String m_country = null;
+    public static String m_live_name = null;
+    public static String m_live_region = null;
+    public static String m_live_language = null;
+    public static String getM_live_url  = null;
     public static void initialize() {
 
     }
