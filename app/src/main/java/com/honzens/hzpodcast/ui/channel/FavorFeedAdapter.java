@@ -1,8 +1,5 @@
 package com.honzens.hzpodcast.ui.channel;
 
-
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
