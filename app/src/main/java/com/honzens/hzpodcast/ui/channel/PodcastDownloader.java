@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.honzens.hzpodcast.classes.Episode;
 
 public class PodcastDownloader {
-
     public static void download(Context context, Episode episode, ProgressBar progressBar, TextView percentText) {
         String url = episode.audioUrl;
         if (url == null || url.isEmpty()) {
@@ -104,16 +103,17 @@ public class PodcastDownloader {
         };
         handler.post(runnable);
     }
-    private static String createFileName(
-            Episode episode) {
+    private static String createFileName(Episode episode) {
         String title = episode.title;
         if (title == null) {
             title = "podcast";
         }
         title = title.replaceAll(
-                "[\\\\/:*?\"<>|]",
-                "_"
+                "[\\\\/:*?\"<>| ]",
+                ""
         );
+        if (title.length() > 20)
+            title = title.substring(0, 20);
         return title + ".mp3";
     }
 }
