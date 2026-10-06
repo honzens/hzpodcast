@@ -41,10 +41,10 @@ public class DownloadViewModel extends ViewModel {
             if (!file.isFile()) {
                 continue;
             }
-            String name = file.getName().toLowerCase(Locale.ROOT);
-            if (name.endsWith(".mp3")) {
+            //String name = file.getName().toLowerCase(Locale.ROOT);
+            //if (name.endsWith(".mp3")) {
                 episodes.add(new DownloadedEpisode(file));
-            }
+            //}
         }
         episodes.sort((a, b) -> {
             if (a.getFile().lastModified() == b.getFile().lastModified())

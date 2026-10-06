@@ -30,6 +30,7 @@ public class PodcastDownloader {
         request.setTitle(episode.title);
         request.setDescription("正在下載 Podcast");
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        //request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
         request.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_MUSIC,"Podcast/" + fileName);
         DownloadManager manager = (DownloadManager)context.getSystemService(Context.DOWNLOAD_SERVICE);
         if (manager == null) {
@@ -45,11 +46,9 @@ public class PodcastDownloader {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                DownloadManager.Query query =
-                        new DownloadManager.Query();
+                DownloadManager.Query query = new DownloadManager.Query();
                 query.setFilterById(downloadId);
-                Cursor cursor =
-                        manager.query(query);
+                Cursor cursor = manager.query(query);
                 if (cursor == null) {
                     return;
                 }
@@ -95,25 +94,28 @@ public class PodcastDownloader {
                     }
                 }
                 cursor.close();
-                handler.postDelayed(
-                        this,
-                        500
-                );
+                handler.postDelayed(this,500);
             }
         };
         handler.post(runnable);
     }
     private static String createFileName(Episode episode) {
-        String title = episode.title;
-        if (title == null) {
+        String title = episode != null ? episode.title : null;
+        if (title == null || title.trim().isEmpty()) {
             title = "podcast";
         }
-        title = title.replaceAll(
-                "[\\\\/:*?\"<>| ]",
-                ""
-        );
-        if (title.length() > 20)
-            title = title.substring(0, 20);
+        // 1. 正則：僅保留 中文、英文字母、數字、底線(_) 與 連字號(-)
+        // 這能完美過濾斜線 /、冒號 :、單雙引號、空白鍵及任何不可見字元
+        title = title.replaceAll("[^a-zA-Z0-9\\u4e00-\\u9fa5_-]", "");
+        // 2. 防呆：若過濾後變成空字串，給予預設檔名
+        if (title.isEmpty()) {
+            title = "podcast_" + System.currentTimeMillis();
+        }
+        // 3. 限制檔名長度（建議保留，避免系統限制 max path 長度 255 字元）
+        if (title.length() > 50) {
+            title = title.substring(0, 50);
+        }
+        // 4. 補上副檔名
         return title + ".mp3";
     }
 }
